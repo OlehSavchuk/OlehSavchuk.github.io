@@ -2,8 +2,9 @@ name: Deploy Hugo site to Pages
 
 on:
   push:
-    branches: ["main" || "master"] # Adjust to match your repository's default branch name
-
+    branches:
+      - main
+      - master
   workflow_dispatch:
 
 permissions:
@@ -21,7 +22,7 @@ defaults:
 
 jobs:
   build:
-    runs-run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.128.0
     steps:
