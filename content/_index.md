@@ -2,7 +2,7 @@
 # Leave the homepage title empty to use the site title
 title: ''
 summary: ''
-date: 2022-10-24
+date: 2026-5-18
 type: landing
 
 sections:
@@ -14,7 +14,7 @@ sections:
       # Show a call-to-action button under your biography? (optional)
       button:
         text: Download CV
-        url: uploads/resume.pdf
+        url: uploads/Oleh_Savchuk_CV.pdf
       headings:
         about: ''
         education: ''
@@ -38,11 +38,10 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+    I am a theoretical physicist grounded in numerical and statistical workflows. My work rotates around building complex theoretical model that are then implemented numerically as a part of statistical/bayesian analysis workflows that use various experimental data from high and low energy heavy-ion collision experiments. This creates an intersection of high energy and particles physics, many-body theory, quantum fields, software engineering and statistics. I am very proud to be able to work in such a dynamic and evolving field that bields upon the legacy of virtually whole previous discoveries. Additionaly, I am passionate about new techniques such as artificial intelligence, machine learning, quantum computing, robotics and automation.
 
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
+    If you wish to collaborate please feel free to reach out to me.
 
-        Please reach out to collaborate 😃
     design:
       columns: '1'
   - block: collection
@@ -105,7 +104,7 @@ sections:
       spacing:
         padding: [0, 0, 0, 0]
   - block: cta-card
-    demo: true # Only display this section in the HugoBlox Kit demo site
+    demo: false # Only display this section in the HugoBlox Kit demo site
     content:
       title: 👉 Build your own academic website like this
       text: |-
