@@ -66,7 +66,7 @@ experience:
       text: View portfolio
       url: /
       icon: hero/arrow-down-tray
-   - role: Postdoctoral Researcher
+  - role: Postdoctoral Researcher
     org: Facility for Rare Isotope Beams
     start: 2024-11-01
     end: 2025-11-01
@@ -122,7 +122,4 @@ awards:
     awarder: American Physical Society
     date: "2023-12-01"
     summary: Awarded to facilitate travel and collaboration with Lawrence Berkeley National Laboratory
-    icon: hero/trophy  - Theoretical Physics
-  - Statistics and Probability theory
-  - Machine Learning and Artificial Intelligence
-  - Robotics
+    icon: hero/trophy
