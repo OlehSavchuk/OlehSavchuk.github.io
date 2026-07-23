@@ -48,20 +48,30 @@ education:
       url: /thesis.pdf
       icon: hero/arrow-down-tray
   - degree: MS Theoretical Physics
-    institution: Carnegie Mellon University
+    institution: Taras Shevchenko National University in Kyiv
     start: 2018-09-01
     end: 2020-05-31
   - degree: BS Theoretical Physics
-    institution: MIT
+    institution: Taras Shevchenko National University in Kyiv
     start: 2014-09-01
     end: 2018-05-31
 
 experience:
   - role: Postdoctoral Researcher
     org: IRL-NPA/Facility for Rare Isotope Beams
-    start: 2024-11-01
+    start: 2025-11-01
     summary: |
       Equation of state of strongly interacting matter and statistical formation of light nuclei
+    button:
+      text: View portfolio
+      url: /
+      icon: hero/arrow-down-tray
+   - role: Postdoctoral Researcher
+    org: Facility for Rare Isotope Beams
+    start: 2024-11-01
+    end: 2025-11-01
+    summary: |
+      Femtoscopic analysis of vorticity generated in ultra-relativistic collision
     button:
       text: View portfolio
       url: /
@@ -74,6 +84,14 @@ experience:
       Studied statistical properties of strongly interacting matter and performed femtoscopic analysis of fluctuations and correlations with the aim to constrain vorticity at low collision energies.
 
 skills:
+  - name: Science 
+    items:
+      - label: Probability and Statistics
+        level: 5
+      - label: Physics
+        level: 5
+      - label: Simulations
+        level: 5
   - name: Technical Skills
     items:
       - label: Python
@@ -81,22 +99,22 @@ skills:
       - label: Machine Learning
         level: 5
       - label: Cloud Computing
-        level: 4
+        level: 5
   - name: Research & Communication
     items:
       - label: Academic Writing
         level: 5
       - label: Conference Presentations
-        level: 4
+        level: 5
       - label: Grant Proposals
-        level: 4
+        level: 5
 
 languages:
   - name: English
     level: 4
     label: Fluent
   - name: Ukrainian
-    level: 5
+    level: 4
     label: Native
 
 awards:
