@@ -47,13 +47,13 @@ social:
     link: 'mailto:savchukolegv@gmail.com'
   - icon: google-scholar
     icon_pack: ai
-    link: [https://scholar.google.com/](https://scholar.google.com/citations?user=pEXcS4EAAAAJ&hl=uk)
+    link: 'https://scholar.google.com/citations?user=pEXcS4EAAAAJ&hl=uk'
   - icon: github
     icon_pack: fab
-    link: [https://github.com/OlehSavchuk](https://github.com/OlehSavchuk)
+    link: 'https://github.com/OlehSavchuk'
   - icon: linkedin
     icon_pack: fab
-    link: [https://linkedin.com/](https://www.linkedin.com/in/oleh-savchuk-5640291b9/)
+    link: 'https://www.linkedin.com/in/oleh-savchuk-5640291b9/'
 
 # User profile type (leaves it as a regular person profile)
 user_groups:
@@ -62,6 +62,4 @@ user_groups:
 
 ## About Me
 
-I am a Postdoctoral Research Associate at the Facility for Rare Isotope Beams (FRIB) at Michigan State University. My research sits at the intersection of high-energy nuclear physics, heavy-ion phenomenology, and advanced computational techniques. 
-
-My primary work focuses on constraining the dense nuclear matter Equation of State (EOS) using relativistic transport models like `UrQMD` and `SMASH`. To bridge the gap between microscopic simulations and thermodynamic models, I leverage modern data science pipelines—including Bayesian inference, normalizing flows, and high-performance machine learning frameworks (TensorFlow, PyTorch) to minimize emulator uncertainty and extract robust physics parameters from experimental data.
+I am a Postdoctoral Research Associate at the Facility for Rare Isotope Beams (FRIB) at Michigan State University. My research sits at the intersection of high-energy nuclear physics, heavy-ion phenomenology, and advanced computational techniques.
