@@ -1,9 +1,9 @@
 ---
-title: "Light Nuclei Formation in Heavy-Ion Collisions"
+title: "Dynamics of Conserved-Charge Fluctuations in Heavy-Ion Collisions"
 date: '2026-01-14T00:00:00Z'
 event: "UH Nuclear Theory Seminar"
 location: "University of Houston"
-summary: "Dynamics of Conserved-Charge Fluctuations in Heavy-Ion Collisions"
+summary: "Baryon charge stopping and onset of deconfinement leave imprints in net-proton fluctuations"
 
 authors:
   - Oleh Savchuk
