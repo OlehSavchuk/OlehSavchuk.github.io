@@ -9,6 +9,9 @@ main:
   - name: Talks
     url: '#talks'
     weight: 30
+  - name: Projects
+    url: '#projects' # Points directly to your downloadable PDF
+    weight: 40  
   - name: CV
     url: 'uploads/Oleh_Savchuk_CV.pdf' # Points directly to your downloadable PDF
-    weight: 40
+    weight: 50
