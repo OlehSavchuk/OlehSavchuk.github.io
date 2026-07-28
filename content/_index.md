@@ -39,12 +39,12 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        As a theoretical physicist, my research bridges the gap between complex theoretical modeling and advanced computational workflows. I develop numerical models and integrate them into rigorous statistical and Bayesian frameworks to interpret data from heavy-ion collision experiments. Operating at the intersection of high-energy physics, many-body theory, quantum fields, software engineering, and statistics allows me to contribute to a deeply dynamic and historically rich scientific discipline. Driven by a passion for technical innovation, I am also continually exploring the applications of artificial intelligence, machine learning, quantum computing, and automation.
+        As a theoretical physicist, I specialize in translating complex, stochastic phenomena into rigorous mathematical models and scalable computational workflows. My expertise centers on designing advanced probabilistic models and implementing them through highly optimized, parallelized software architecture. By leveraging deep Bayesian inference and machine learning frameworks, I extract meaningful signals from exceptionally noisy, high-variance datasets. My technical foundation is built on high-performance C++ and Python development, focusing on robust numerical implementation, algorithmic optimization, and predictive data analysis.
         
         If you wish to collaborate, please feel free to reach out to me.
     design:
       columns: '1'
-  - block: collections
+  - block: collection
     id: projects
     content:
       title: Projects
