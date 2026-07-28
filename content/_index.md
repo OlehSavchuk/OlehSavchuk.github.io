@@ -44,6 +44,17 @@ sections:
         If you wish to collaborate, please feel free to reach out to me.
     design:
       columns: '1'
+  - block: collections
+    id: projects
+    content:
+      title: Projects
+      filters:
+        folders:
+          - projects
+        featured_only: false
+    design:
+      view: article-grid
+      columns: 2
 
   - block: collection
     id: papers
