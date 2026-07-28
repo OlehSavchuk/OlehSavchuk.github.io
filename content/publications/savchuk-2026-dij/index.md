@@ -74,4 +74,4 @@ links:
   url: https://arxiv.org/abs/2605.11275
 ---
 
-Add the **full text** or **supplementary notes** for the publication here using Markdown formatting.
+HCGF is an open-source package designed to calculate light cluster production from transport model simulations. In high-energy nuclear physics, dynamically treating clusters within transport simulations is traditionally highly complex, as it requires tracking the microscopic details of every possible reaction involving clusters and nuclei.
