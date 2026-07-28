@@ -72,4 +72,4 @@ links:
   url: https://arxiv.org/abs/2402.12504
 ---
 
-Add the **full text** or **supplementary notes** for the publication here using Markdown formatting.
+In this work, I have investigated transverse momentum correlations within the soft sector. Thermal excitations provide a satisfactory description of experimental data when coupled with long-range correlations from the early stages of the collision. Consequently, the Ridge structure emerges as a compelling observable for initial-state studies in addition to linking final-state measurements to fine features of the equation of state, particularly energy-momentum susceptibilities.
