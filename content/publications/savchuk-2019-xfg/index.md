@@ -75,4 +75,4 @@ links:
   url: https://arxiv.org/abs/1911.03426
 ---
 
-Add the **full text** or **supplementary notes** for the publication here using Markdown formatting.
+In this work, we present a powerful generalization of the mathematical framework for independent particle fluctuations, enabling efficient cumulant calculations and robust statistical predictions. Analysis of the resulting functional dependencies demonstrates that non-monotonic behavior in the cumulants can emerge, driven by volume fluctuations and the energy-dependent evolution of acceptance parameters.
