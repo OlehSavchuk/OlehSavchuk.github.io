@@ -62,4 +62,4 @@ user_groups:
 
 ## About Me
 
-I am a Postdoctoral Research Associate at the Facility for Rare Isotope Beams (FRIB) at Michigan State University. My research sits at the intersection of high-energy nuclear physics, heavy-ion phenomenology, and advanced computational techniques.
+I am a theoretical physicist currently serving as a Postdoctoral Research Associate at the Facility for Rare Isotope Beams (FRIB) at Michigan State University. I hold a PhD in Theoretical Physics, alongside comprehensive foundational degrees in the field, which have deeply informed my approach to complex scientific problem-solving. My current work sits precisely at the intersection of high-energy nuclear physics, heavy-ion phenomenology, and advanced computational techniques. Operating in this highly dynamic space allows me to continually push the boundaries of many-body theory and quantum field theory while contributing to a historically rich scientific discipline.
