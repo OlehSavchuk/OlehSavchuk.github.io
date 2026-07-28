@@ -71,4 +71,4 @@ links:
   url: https://arxiv.org/abs/2407.17670
 ---
 
-Add the **full text** or **supplementary notes** for the publication here using Markdown formatting.
+Net-proton fluctuations are a focal point of the Beam Energy Scan program at the Relativistic Heavy Ion Collider at Brookhaven National Laboratory. In this paper, I explain how measured net-proton fluctuations reveal deconfinement and baryon stopping at the early stage of the collision, as well as the general sensitivity of final-state observables to the entire collision history.
