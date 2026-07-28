@@ -39,7 +39,7 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        I am a theoretical physicist grounded in numerical and statistical workflows. My work rotates around building complex theoretical models that are then implemented numerically as a part of statistical/Bayesian analysis workflows that use various experimental data from high and low energy heavy-ion collision experiments. This creates an intersection of high-energy and particle physics, many-body theory, quantum fields, software engineering, and statistics. I am very proud to be able to work in such a dynamic and evolving field that builds upon the legacy of virtually all previous discoveries. Additionally, I am passionate about new techniques such as artificial intelligence, machine learning, quantum computing, robotics, and automation.
+        As a theoretical physicist, my research bridges the gap between complex theoretical modeling and advanced computational workflows. I develop numerical models and integrate them into rigorous statistical and Bayesian frameworks to interpret data from heavy-ion collision experiments. Operating at the intersection of high-energy physics, many-body theory, quantum fields, software engineering, and statistics allows me to contribute to a deeply dynamic and historically rich scientific discipline. Driven by a passion for technical innovation, I am also continually exploring the applications of artificial intelligence, machine learning, quantum computing, and automation.
         
         If you wish to collaborate, please feel free to reach out to me.
     design:
