@@ -1,6 +1,6 @@
 ---
 title: FFT Normalizing Flow
-date: 2026-07-28
+date: 2022-07-28
 links:
   - type: site
     url: https://github.com/OlehSavchuk/FFTFlow/tree/main
