@@ -8,7 +8,6 @@ tags:
   - Probability & Statistics
   - Normalizing Flow
   - Machine Learning 
+This project provides an example of building custom bijector layers in TensorFlow Probability, inspired by the Fourier Transform's success in physics problem-solving. It demonstrates how field configurations on a lattice can be efficiently sampled using an unsupervised learned probability distribution to enhance and accelerate field theory simulations.
 ---
-This is an example of using custom bisector layer within TensorFlow Probability inspired by Fourier Transform success in solving problems in physics.
-The fields configuration considered on a lattice can be efficiently sampled using probability distribution learned in an unsupervised way enhancing field theory simulations.
 <!--more-->
