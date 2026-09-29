@@ -15,3 +15,10 @@ main:
   - name: CV
     url: 'uploads/Oleh_Savchuk_CV.pdf' # Points directly to your downloadable PDF
     weight: 50
+  - name: Plots
+    url: '/#plots' 
+    weight: 60
+  - name: Hobbies
+    url: '/#hobbies' 
+    weight: 70
+    
