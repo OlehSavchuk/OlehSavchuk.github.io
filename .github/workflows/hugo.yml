@@ -1,22 +1,29 @@
-- name: Setup Hugo
+steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive  # Crucial if your theme is a git submodule
+
+      - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true
 
-      # 1. Add Node.js setup so npm packages/Preact can be resolved
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'  # Caches node_modules for faster builds
 
-      # 2. Install TailwindCSS CLI locally or globally so Hugo can find it
-      - name: Install TailwindCSS CLI
-        run: |
-          npm install -D @tailwindcss/cli
-          # Alternatively, ensure npx can resolve it, or download the binary if needed.
-          # To make the binary accessible in PATH:
-          sudo npm install -g @tailwindcss/cli
+      - name: Install Dependencies
+        run: npm install
 
       - name: Build with Hugo
         run: hugo --gc --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
