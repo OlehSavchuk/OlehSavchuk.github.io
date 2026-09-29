@@ -1,24 +1,22 @@
-# Navigation links
 main:
   - name: Home
-    url: '/#about'
+    url: '/'                 # Goes to the main homepage
     weight: 10
   - name: Publications
-    url: '/#publications'
+    url: '/publication/'     # REMOVED #. Standard Hugo folder is usually singular.
     weight: 20
   - name: Talks
-    url: '/#talks'
+    url: '/#talks'           # Keep # if you still want this on the homepage
     weight: 30
   - name: Projects
-    url: '/#projects' # Points directly to your downloadable PDF
+    url: '/#projects' 
     weight: 40  
   - name: CV
-    url: 'uploads/Oleh_Savchuk_CV.pdf' # Points directly to your downloadable PDF
+    url: 'uploads/Oleh_Savchuk_CV.pdf' 
     weight: 50
   - name: Plots
-    url: '/#plots' 
+    url: '/plots/'           # REMOVED # to point to a new page
     weight: 60
   - name: Hobbies
-    url: '/#hobbies' 
+    url: '/hobbies/'         # REMOVED # to point to a new page
     weight: 70
-    
