@@ -1,0 +1,44 @@
+{{ $images := .Page.Resources.ByType "image" }}
+
+<div class="hobby-content-wrapper" style="display: flex; gap: 40px; flex-wrap: wrap; margin: 20px 0; color: var(--tw-prose-body, #333);">
+  
+  <!-- Image Gallery -->
+  <div class="hobby-gallery" style="flex: 1; min-width: 300px; max-width: 600px;">
+    {{ if $images }}
+      <div class="main-image-container" style="margin-bottom: 15px;">
+        {{ $first := index $images 0 }}
+        <img id="main-gallery-img" src="{{ $first.RelPermalink }}" alt="Main View" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      </div>
+      
+      <div class="thumbnail-row" style="display: flex; gap: 10px; overflow-x: auto;">
+        {{ range $index, $img := $images }}
+          <img class="thumb" src="{{ $img.RelPermalink }}" alt="Thumbnail" onclick="updateMainImage(this)" 
+               style="width: 80px; height: 60px; object-fit: cover; cursor: pointer; border: 2px solid {{ if eq $index 0 }}#555{{ else }}transparent{{ end }}; border-radius: 4px; transition: border-color 0.2s ease;">
+        {{ end }}
+      </div>
+      <p style="text-align: center; font-size: 0.9em; opacity: 0.7; margin-top: 10px;">flip through</p>
+    {{ end }}
+  </div>
+
+  <!-- Description Text from Markdown -->
+  <div class="hobby-description" style="flex: 1; min-width: 300px;">
+    <h3 style="margin-top: 0; font-size: 1.2em; text-transform: lowercase;">description</h3>
+    <div style="line-height: 1.6; font-size: 1.05em;">
+      {{ .Inner | markdownify }}
+    </div>
+  </div>
+</div>
+
+<script>
+function updateMainImage(thumbnail) {
+  const mainImg = document.getElementById('main-gallery-img');
+  mainImg.src = thumbnail.src;
+  
+  const thumbnails = document.querySelectorAll('.thumbnail-row .thumb');
+  thumbnails.forEach(thumb => {
+    thumb.style.borderColor = 'transparent';
+  });
+  
+  thumbnail.style.borderColor = '#555';
+}
+</script>
