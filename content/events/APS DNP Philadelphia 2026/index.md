@@ -1,6 +1,6 @@
 ---
 title: "Freeze-out of light nuclei at low and intermediate energies"
-date: '2025-10-20T00:00:00Z'
+date: '2026-10-13T00:00:00Z'
 event: "APS DNP Philadelphia"
 location: "Marriot Philadelphia"
 summary: "Light nuclei are produced abundantly in heavy-ion collisions at low and intermediate beam energies. Their production presents both a significant theoretical challenge, as it requires substantial modifications to existing simulation frameworks, and a unique opportunity to improve our understanding of the equation of state of dense nuclear matter due to the sensitivity of light nuclei to collective flow.
