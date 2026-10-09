@@ -13,3 +13,5 @@ This interactive 3D plot shows the time evolution of a single UrQMD event for Au
 <iframe src="/uploads/urqmd_event_2.html" frameborder="0" style="width: 80%; height: 60vh; display: block; margin: 0 auto 40px auto; background-color: black; border-radius: 8px;"></iframe>
 
 <iframe src="/uploads/urqmd_event_3.html" frameborder="0" style="width: 80%; height: 60vh; display: block; margin: 0 auto 40px auto; background-color: black; border-radius: 8px;"></iframe>
+
+<iframe src="/uploads/net_proton_cumulant_model.html" frameborder="0" style="width: 90%; height: 600vh; display: block; margin: 0 auto 40px auto; background-color: black; border-radius: 8px;"></iframe>
