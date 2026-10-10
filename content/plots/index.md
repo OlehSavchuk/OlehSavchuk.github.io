@@ -18,3 +18,8 @@ This interactive 3D plot shows the time evolution of a single UrQMD event for Au
 These interactive plots show the changes in cumulants/fluctuations/correlations of conserved charges in a stochastic model introduced in [arXiV:2407.17670].
 
 <iframe src="/uploads/net_proton_cumulant_model.html" frameborder="0" style="width: 90%; height: 600vh; display: block; margin: 0 auto 40px auto; background-color: black; border-radius: 8px;"></iframe>
+
+### Bayesian of fluctuations
+We use Bayes` theorem to infer parameters of [arXiV:2407.17670].
+
+<iframe src="/uploads/Bayesian fit.html" frameborder="0" style="width: 90%; height: 600vh; display: block; margin: 0 auto 40px auto; background-color: black; border-radius: 8px;"></iframe>
