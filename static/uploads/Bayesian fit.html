@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bayesian fit: baryon vs quark stopping</title>
+<style>
+:root{box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+--bg:#f6f5f1;--card:#fff;--fg:#1f1e1b;--fg2:#6b6a64;--line:#d9d6cc;--accent:#f28c28}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1b19;--card:#262624;--fg:#f1efe8;--fg2:#a8a69c;--line:#3a3935}}
+:root[data-theme="dark"]{--bg:#1b1b19;--card:#262624;--fg:#f1efe8;--fg2:#a8a69c;--line:#3a3935}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:600px;margin:0 auto;padding:16px}
+h1{font-size:20px;font-weight:500;margin:0 0 4px}
+h2{font-size:14px;font-weight:500;margin:0 0 6px}
+p{margin:0 0 10px}.sub,.note{color:var(--fg2);font-size:13px}
+.warn{background:var(--card);border:1px solid var(--accent);border-radius:8px;padding:8px 10px;font-size:13px;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}
+canvas{width:100%;height:auto;display:block}
+textarea{width:100%;height:150px;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px}
+select{font:inherit;font-size:14px;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:5px 6px;max-width:100%}
+.r2{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;margin-bottom:8px;font-size:14px}.r2 input[type=range]{grid-column:1/3;width:100%;accent-color:var(--accent)}.r2 output{font-weight:500}
+input[type=number]{font:inherit;width:90px;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:4px 6px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:14px}
+button{font:inherit;font-size:14px;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button.p{background:var(--accent);border-color:var(--accent);color:#1f1e1b}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--fg2);margin-bottom:4px}
+.leg i{display:inline-block;width:16px;height:0;border-top:2px solid;vertical-align:middle;margin-right:5px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:right;padding:5px 6px;border-bottom:1px solid var(--line);font-weight:400;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+</style>
+</head>
+<body>
+<main>
+<h1>Bayesian fit: baryon vs quark stopping</h1>
+<p class="sub">Model of O. Savchuk, PRC 111, 024913, without factorial cumulants. Exact grid posterior and evidence for three scenarios.</p>
+<div class="warn" id="wn"></div>
+
+<div class="card">
+<h2>Data</h2>
+<textarea id="data" spellcheck="false" aria-label="Data table"></textarea>
+<p class="note" style="margin-top:6px">Columns: √sNN, net-proton mean ⟨p−p̄⟩, antiproton mean ⟨p̄⟩, ω, σ_ω, Sσ, σ_S, κσ², σ_κ (total errors). Mean values are in the acceptance. Separators: comma, space or tab.</p>
+<div class="btns"><label for="Bs">B_s</label><input type="number" id="Bs" value="337" min="50" max="500" step="1">
+<button class="p" id="fit">Fit</button><button id="dg">Load digitized STAR data</button><button id="dm">Load synthetic demo</button></div>
+<div class="btns"><label><input type="checkbox" id="uw"> Include ω in the likelihood</label></div>
+</div>
+
+<div class="card">
+<h2>Priors and weights</h2>
+<div class="r2"><label for="pa">α₁₁ prior</label><select id="pa"><option value="u">Uniform 0.05-1</option><option value="u5">Uniform 0.5-1</option><option value="fix">Fixed at 0.75</option></select></div>
+<div class="r2"><label for="pe">E_tr prior</label><select id="pe"><option value="ln">Uniform in ln E, 7.7-50 GeV</option><option value="u">Uniform in E, 7.7-50 GeV</option><option value="g">Gaussian 12 ± 3 GeV</option></select></div>
+<div class="r2"><label for="pw">w prior</label><select id="pw"><option value="u">Uniform 0.5-10 GeV</option><option value="lu">Log-uniform 0.5-10 GeV</option><option value="fix">Fixed at 2 GeV</option></select></div>
+<div class="r2"><label for="rel">ω and Sσ relative error (%, 0 = use table)</label><input type="number" id="rel" value="10" min="0" max="100" step="1"></div>
+<div class="r2"><label for="kw">Kurtosis weight</label><output id="kwo">1.0</output><input type="range" id="kw" min="0" max="5" step="0.1" value="1"></div>
+</div>
+
+<div class="card">
+<div class="leg">
+<span><i style="border-color:#888780;border-top-style:dashed"></i>baryon stopping</span>
+<span><i style="border-color:#378ADD"></i>quark + recombination</span>
+<span><i style="border-color:#F28C28;border-top-width:3px"></i>switch</span>
+</div>
+<canvas id="c0" role="img" aria-label="Scaled variance data and fits"></canvas>
+<canvas id="c1" role="img" aria-label="Skewness data and fits"></canvas>
+<canvas id="c2" role="img" aria-label="Kurtosis data and fits"></canvas>
+<p class="note">Lines are posterior predictive means at the data energies.</p>
+</div>
+
+<div class="card">
+<h2>Model comparison</h2>
+<div class="tw"><table id="res"></table></div>
+<p class="note">ln BF is the log Bayes factor against baryon stopping, which has no free parameters. Positive favors the row's model after the Occam penalty for its parameters.</p>
+</div>
+
+<div class="card">
+<h2>Posteriors and priors</h2>
+<div class="leg"><span><i style="border-color:#888780;border-top-style:dashed"></i>prior</span><span><i style="border-color:#378ADD"></i>quark + recombination</span><span><i style="border-color:#F28C28"></i>switch</span></div>
+<canvas id="c3" role="img" aria-label="Posterior of alpha 11"></canvas>
+<canvas id="c4" role="img" aria-label="Posterior of switch energy"></canvas>
+<canvas id="c5" role="img" aria-label="Posterior of switch width"></canvas>
+</div>
+
+<div class="card">
+<h2>Corner plot, switch model</h2>
+<canvas id="c6" role="img" aria-label="Corner plot of alpha 11, switch energy and switch width"></canvas>
+<p class="note">Shaded regions are the 68% (dark) and 95% (light) highest-density regions on the grid, dots are posterior means. Diagonal panels show the prior (dashed) and the posterior, with the quark-only α₁₁ posterior in blue.</p>
+</div>
+
+<div class="card">
+<details><summary>Method</summary>
+<p class="note" style="margin-top:8px">Per energy, α = ⟨p−p̄⟩/B_s and B̄ = ⟨p̄⟩/α (paper Eqs. 28 and 30), with α_p = α and ω[B̄] = 1. Predictions use Eqs. 8-11 and 21-24 for baryon stopping, and the generating-function composition of Eqs. 13-19 for quark stopping, with detailed balance α₂₁ = α₁₂ α/(1-α) and binomial (ideal gas with conservation) input. The switch scenario mixes the two stopped-charge cumulants with β(E) = 1/(1+exp(-(E-E_tr)/w)).</p>
+<p class="note">Likelihood: independent Gaussians for ω, Sσ and κσ² at each energy, so correlations between observables and energies are ignored. Priors are selectable above (defaults: α₁₁ uniform on 0.05-1, E_tr uniform in ln E on 7.7-50 GeV, w uniform on 0.5-10 GeV). Fixed priors use the nearest grid point. Evidence is the prior-weighted likelihood summed on a 40 × 36 × 14 grid. The kurtosis weight multiplies the κσ² χ² term, so for weights other than 1 the evidence uses a tempered likelihood and Bayes factors are not strict.</p>
+</details>
+</div>
+</main>
+
+<script>
+var $=function(i){return document.getElementById(i)},D=2,FA=[1,1,2,6,24];
+function mul(a,b){var c=[0,0,0,0,0];for(var i=0;i<5;i++)for(var j=0;i+j<5;j++)c[i+j]+=a[i]*b[j];return c}
+function expc(u,c){var r=[1,0,0,0,0],t=[1,0,0,0,0];for(var n=1;n<5;n++){t=mul(t,u);for(var i=0;i<5;i++)r[i]+=t[i]*Math.pow(c,n)/FA[n]}return r}
+function lnS(S){var x=S.slice();x[0]-=1;var r=[0,0,0,0,0],t=[1,0,0,0,0];for(var n=1;n<5;n++){t=mul(t,x);for(var i=0;i<5;i++)r[i]+=(n%2?1:-1)*t[i]/n}return r}
+function bin(p){var q=p*(1-p);return[0,p,q/2,q*(1-2*p)/6,q*(1-6*q)/24]}
+function stopQ(al,a11,Bs,m){var a21=Math.min(1,Math.max(0,al/(1-al)*(1-a11))),e1=expc(bin(a11),1/m),e2=expc(bin(a21),1/m),S=[];
+ for(var i=0;i<5;i++)S[i]=al*e1[i]+(1-al)*e2[i];var L=lnS(S),N=m*Bs;return[1,2,3,4].map(function(n){return N*L[n]*FA[n]})}
+function stopB(al,Bs){var q=al*(1-al);return[Bs*al,Bs*q,Bs*q*(1-2*al),Bs*q*(1-6*q)]}
+function pairC(Bb,ap,om){var q=ap*(1-ap);return[0,2*Bb*q,0,2*Bb*q*(1+6*q*(om-1))]}
+function add(a,b){return a.map(function(x,i){return x+b[i]})}
+function mom(k){return[k[1]/k[0],k[2]/k[1],k[3]/k[1]]}
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(r){return Math.sqrt(-2*Math.log(1-r()))*Math.cos(6.283185*r())}
+
+var MODE='dig',DIG='7.7,40.10,0.27,0.893,0.23,0.745,0.048,0.410,0.256\n9.2,35.96,0.05,0.893,0.23,0.753,0.048,0.539,0.198\n11.5,30.90,0.44,0.934,0.23,0.715,0.048,0.402,0.153\n14.6,25.68,0.71,0.975,0.23,0.682,0.048,0.430,0.117\n17.3,23.52,1.07,1.015,0.23,0.652,0.048,0.313,0.131\n19.6,21.94,1.89,1.096,0.23,0.627,0.048,0.339,0.085\n27,17.32,3.20,1.299,0.23,0.547,0.048,0.600,0.108\n39,13.35,5.03,1.685,0.23,0.442,0.048,0.739,0.157\n54.4,10.95,6.70,2.152,0.23,0.345,0.048,0.634,0.147\n62.4,9.77,6.96,2.355,0.23,0.326,0.048,0.795,0.258\n200,4.55,12.99,6.619,0.23,0.124,0.048,0.898,0.220';
+function demo(){
+ var Es=[7.7,9.2,11.5,14.6,17.3,19.6,27,39,54.4,62.4,200],Bs=+$('Bs').value,r=rng(11),e=[0.02,0.03,0.05],L=[];
+ Es.forEach(function(E){
+  var al=Math.exp(Math.log(0.09)+(Math.log(0.015)-Math.log(0.09))*Math.log(E/7.7)/Math.log(200/7.7)),Bb=Bs*Math.pow(E/200,1.3),b=1/(1+Math.exp(-(E-12)/2));
+  var sb=stopB(al,Bs),sq=stopQ(al,0.75,Bs,3),st=sb.map(function(x,i){return(1-b)*x+b*sq[i]}),m=mom(add(st,pairC(Bb,al,1)));
+  L.push([E,(Bs*al).toFixed(2),(al*Bb).toFixed(2),(m[0]+e[0]*gauss(r)).toFixed(3),e[0],(m[1]+e[1]*gauss(r)).toFixed(3),e[1],(m[2]+e[2]*gauss(r)).toFixed(3),e[2]].join(','))});
+ $('data').value=L.join('\n');MODE='demo'}
+function parse(){
+ var rows=[];$('data').value.split('\n').forEach(function(l){var v=l.trim().split(/[\s,;]+/).map(parseFloat);
+  if(v.length>=9&&v.slice(0,9).every(isFinite)&&v[1]>0&&v[2]>=0&&v[4]>0&&v[6]>0&&v[8]>0)rows.push(v.slice(0,9))});
+ rows.sort(function(a,b){return a[0]-b[0]});return rows}
+
+function setup(id,w,h){var c=$(id);c.width=w*D;c.height=h*D;var g=c.getContext('2d');g.scale(D,D);return g}
+var G=[setup('c0',360,170),setup('c1',360,170),setup('c2',360,170),setup('c3',360,130),setup('c4',360,130),setup('c5',360,130),setup('c6',360,350)];
+function col(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||'#888'}
+function chart(g,title,E,ser,pts){
+ var W=360,H=170,l=40,r=10,t=22,b=24,fg=col('--fg2'),ln=col('--line'),lo=1e9,hi=-1e9;
+ ser.forEach(function(s){s.y.forEach(function(v){lo=Math.min(lo,v);hi=Math.max(hi,v)})});
+ pts.y.forEach(function(v,i){lo=Math.min(lo,v-pts.e[i]);hi=Math.max(hi,v+pts.e[i])});
+ var pd=(hi-lo)*0.08||0.1;lo-=pd;hi+=pd;
+ var x0=Math.log(E[0]),x1=Math.log(E[E.length-1]);if(x1<=x0)x1=x0+1;
+ function X(e){return l+(Math.log(e)-x0)/(x1-x0)*(W-l-r)}function Y(v){return H-b-(v-lo)/(hi-lo)*(H-b-t)}
+ g.clearRect(0,0,W,H);g.font='11px sans-serif';g.fillStyle=fg;g.textAlign='left';g.fillText(title,4,13);
+ g.lineWidth=0.5;g.strokeStyle=ln;
+ for(var i=0;i<4;i++){var v=lo+i*(hi-lo)/3;g.beginPath();g.moveTo(l,Y(v));g.lineTo(W-r,Y(v));g.stroke();g.textAlign='right';g.fillStyle=fg;g.fillText(v.toFixed(2),l-4,Y(v)+4)}
+ g.textAlign='center';[10,20,50,100,200].forEach(function(e){if(e>=E[0]&&e<=E[E.length-1]){g.fillStyle=fg;g.fillText(e,X(e),H-9)}});
+ if(lo<1&&hi>1){g.setLineDash([2,3]);g.strokeStyle=fg;g.beginPath();g.moveTo(l,Y(1));g.lineTo(W-r,Y(1));g.stroke();g.setLineDash([])}
+ ser.forEach(function(s){g.beginPath();E.forEach(function(e,i){if(i)g.lineTo(X(e),Y(s.y[i]));else g.moveTo(X(e),Y(s.y[i]))});g.strokeStyle=s.c;g.lineWidth=s.w;g.setLineDash(s.d||[]);g.stroke();g.setLineDash([])});
+ g.strokeStyle=fg;g.fillStyle=fg;g.lineWidth=1;
+ E.forEach(function(e,i){g.beginPath();g.moveTo(X(e),Y(pts.y[i]-pts.e[i]));g.lineTo(X(e),Y(pts.y[i]+pts.e[i]));g.stroke();g.beginPath();g.arc(X(e),Y(pts.y[i]),2.5,0,6.283);g.fill()});
+ g.textAlign='left'}
+function hist(g,title,xs,ser,xlog,dec){
+ var W=360,H=130,l=10,r=10,t=22,b=24,fg=col('--fg2'),x0=xlog?Math.log(xs[0]):xs[0],x1=xlog?Math.log(xs[xs.length-1]):xs[xs.length-1];
+ function X(x){return l+((xlog?Math.log(x):x)-x0)/(x1-x0)*(W-l-r)}
+ g.clearRect(0,0,W,H);g.font='11px sans-serif';g.fillStyle=fg;g.textAlign='left';g.fillText(title,4,13);
+ g.strokeStyle=fg;g.lineWidth=0.5;g.beginPath();g.moveTo(l,H-b);g.lineTo(W-r,H-b);g.stroke();
+ ser.forEach(function(s){var m=Math.max.apply(null,s.y)||1;g.beginPath();xs.forEach(function(x,i){var y=H-b-s.y[i]/m*(H-b-t);if(i)g.lineTo(X(x),y);else g.moveTo(X(x),y)});g.strokeStyle=s.c;g.lineWidth=2;g.setLineDash(s.d||[]);g.stroke();g.setLineDash([])});
+ g.textAlign='center';g.fillStyle=fg;for(var k=0;k<5;k++){var i=Math.round(k*(xs.length-1)/4);g.fillText(xs[i].toFixed(dec),X(xs[i]),H-8)}g.textAlign='left'}
+
+function corner(A,ET,WW,PR,PO,ALT,M2,MN){
+ var g=G[6],W=360,H=350,l=34,r=8,t=8,b=26,gp=12,S=(W-l-r-2*gp)/3,Sh=(H-t-b)/3,fg=col('--fg2'),ln=col('--line');
+ var XS=[A,ET,WW],LG=[false,true,false],NM=['α₁₁','E_tr (GeV)','w (GeV)'],DC=[2,1,1];
+ function mp(i,v){var xs=XS[i],f=LG[i]?Math.log:function(x){return x};return(f(v)-f(xs[0]))/(f(xs[xs.length-1])-f(xs[0]))}
+ g.clearRect(0,0,W,H);g.font='11px sans-serif';g.lineWidth=0.5;
+ for(var rr=0;rr<3;rr++)for(var cc=0;cc<=rr;cc++){
+  var x0=l+cc*(S+gp),y0=t+rr*Sh,xs=XS[cc];
+  g.save();g.beginPath();g.rect(x0,y0,S,Sh);g.clip();
+  if(rr==cc){
+   var sr=[{y:PR[cc],c:'#888780',d:[4,3]}];if(cc==0)sr.push({y:ALT,c:'#378ADD'});sr.push({y:PO[cc],c:'#F28C28'});
+   sr.forEach(function(q){var m=Math.max.apply(null,q.y)||1;g.beginPath();xs.forEach(function(x,i){var X=x0+mp(cc,x)*S,Y=y0+Sh-4-q.y[i]/m*(Sh-24);if(i)g.lineTo(X,Y);else g.moveTo(X,Y)});g.strokeStyle=q.c;g.lineWidth=1.5;g.setLineDash(q.d||[]);g.stroke();g.setLineDash([])})
+  }else{
+   var M=M2[cc==0?(rr==1?0:1):2],ys=XS[rr],all=[];
+   M.forEach(function(row){row.forEach(function(v){all.push(v)})});all.sort(function(a,b){return b-a});
+   var tot=all.reduce(function(a,b){return a+b},0),cu=0,t68=0,t95=0;
+   for(var i=0;i<all.length;i++){cu+=all[i];if(!t68&&cu>=0.68*tot)t68=all[i];if(cu>=0.95*tot){t95=all[i];break}}
+   var dx=S/(xs.length-1),dy=Sh/(ys.length-1);
+   M.forEach(function(row,ix){row.forEach(function(v,iy){if(v<t95||v<=0)return;g.fillStyle=v>=t68?'rgba(242,140,40,0.6)':'rgba(242,140,40,0.25)';
+    g.fillRect(x0+mp(cc,xs[ix])*S-dx/2,y0+Sh-mp(rr,ys[iy])*Sh-dy/2,dx+0.5,dy+0.5)})});
+   g.fillStyle=fg;g.beginPath();g.arc(x0+mp(cc,MN[cc])*S,y0+Sh-mp(rr,MN[rr])*Sh,2.5,0,6.283);g.fill()}
+  g.restore();g.strokeStyle=ln;g.lineWidth=0.5;g.strokeRect(x0,y0,S,Sh);g.fillStyle=fg;g.textAlign='left';
+  if(rr==cc)g.fillText(NM[cc],x0+4,y0+11);
+  if(rr==2){g.textAlign='left';g.fillText(xs[0].toFixed(DC[cc]),x0,y0+Sh+11);g.textAlign='right';g.fillText(xs[xs.length-1].toFixed(DC[cc]),x0+S,y0+Sh+11);g.textAlign='center';g.fillText(NM[cc],x0+S/2,y0+Sh+23)}
+  if(cc==0&&rr>0){var ys2=XS[rr];g.textAlign='right';g.fillText(ys2[0].toFixed(DC[rr]),x0-3,y0+Sh);g.fillText(ys2[ys2.length-1].toFixed(DC[rr]),x0-3,y0+10)}
+ }
+ g.textAlign='left'}
+function stat(xs,ws){var s=0,m=0,v=0;ws.forEach(function(w,i){s+=w;m+=w*xs[i]});m/=s;ws.forEach(function(w,i){v+=w*Math.pow(xs[i]-m,2)});return[m,Math.sqrt(v/s)]}
+function lse(a){var m=Math.max.apply(null,a),s=0;a.forEach(function(x){s+=Math.exp(x-m)});return m+Math.log(s)}
+
+function fit(){
+ var d=parse(),n=d.length,Bs=+$('Bs').value,rel=+$('rel').value/100,kw=+$('kw').value;
+ $('kwo').textContent=kw.toFixed(1);if(rel>0)d.forEach(function(r){r[4]=rel*r[3];r[6]=rel*r[5]});
+ $('wn').innerHTML=MODE=='demo'?'<b>Synthetic demo data.</b> Generated from this model with α₁₁ = 0.75, E_tr = 12 GeV, w = 2 GeV and invented errors.':MODE=='dig'?'<b>Digitized from the paper figures.</b> STAR preliminary points read off Fig. 3, with about 1 px of reading error (≈0.02 in ω, 0.004 in Sσ and κσ²). κσ² errors are the plotted bars. ω and Sσ show no error bars, so the fit applies the relative error set under Priors and weights (10% by default; 0 uses the table values, which are the marker radius). α(E) was read from Fig. 2 with B_s = 337, and B̄ was inferred from ω with Eq. 25, so ω is left out of the likelihood by default. Keep B_s = 337 for this table.':'Fitting the pasted table ('+n+' energies).';
+ if(n<3){$('res').innerHTML='<tr><td>Need at least 3 valid rows.</td></tr>';return}
+ var NA=40,NE=36,NW=14,A=[],ET=[],WW=[],i,j,k,l;
+ for(j=0;j<NA;j++)A.push(0.05+0.95*j/(NA-1));
+ for(k=0;k<NE;k++)ET.push(7.7*Math.pow(50/7.7,k/(NE-1)));
+ for(l=0;l<NW;l++)WW.push(0.5+9.5*l/(NW-1));
+ var pre=d.map(function(r){var al=r[1]/Bs;if(al>=0.99)al=0.99;var Bb=r[2]/al;
+  return{E:r[0],pr:pairC(Bb,al,1),sb:stopB(al,Bs),Q:A.map(function(a){return stopQ(al,a,Bs,3)})}});
+ function pred(p,b,jj){var q=p.Q[jj];return mom(add(p.sb.map(function(x,m){return(1-b)*x+b*q[m]}),p.pr))}
+ var uw=$('uw').checked?1:0;
+ function ll(vals){var s=0;for(var i=0;i<n;i++){var m=vals[i];s+=uw*Math.pow((m[0]-d[i][3])/d[i][4],2)+Math.pow((m[1]-d[i][5])/d[i][6],2)+kw*Math.pow((m[2]-d[i][7])/d[i][8],2)}return-0.5*s}
+ function nrm(a){var t=a.reduce(function(x,y){return x+y},0);return a.map(function(x){return x/t})}
+ function near(xs,v){var b=0;xs.forEach(function(x,i){if(Math.abs(x-v)<Math.abs(xs[b]-v))b=i});return b}
+ var pa=$('pa').value,pe=$('pe').value,pw=$('pw').value;
+ var PA=nrm(A.map(function(a,j){return pa=='fix'?(j==near(A,0.75)?1:0):pa=='u5'?(a>=0.5?1:0):1}));
+ var PE=nrm(ET.map(function(e){return pe=='u'?e:pe=='g'?e*Math.exp(-0.5*Math.pow((e-12)/3,2)):1}));
+ var PW=nrm(WW.map(function(w,l){return pw=='fix'?(l==near(WW,2)?1:0):pw=='lu'?1/w:1}));
+ var L0=ll(pre.map(function(p){return pred(p,0,0)}));
+ var L1=A.map(function(a,jj){return ll(pre.map(function(p){return pred(p,1,jj)}))});
+ var L2=[];
+ for(j=0;j<NA;j++)for(k=0;k<NE;k++)for(l=0;l<NW;l++)L2.push(ll(pre.map(function(p){return pred(p,1/(1+Math.exp(-(p.E-ET[k])/WW[l])),j)})));
+ var L1p=L1.map(function(x,j){return x+Math.log(PA[j])}),LP2=[],ix=0;
+ for(j=0;j<NA;j++)for(k=0;k<NE;k++)for(l=0;l<NW;l++)LP2.push(L2[ix++]+Math.log(PA[j]*PE[k]*PW[l]));
+ var m1=lse(L1p),m2=lse(LP2),lz1=m1,lz2=m2;
+ var w1=L1p.map(function(x){return Math.exp(x-m1)}),mA=A.map(function(){return 0}),mE=ET.map(function(){return 0}),mW=WW.map(function(){return 0}),w2=[],idx=0;
+ function z2(a,b){var m=[];for(var i=0;i<a;i++)m.push(new Array(b).fill(0));return m}
+ var mAE=z2(NA,NE),mAW=z2(NA,NW),mEW=z2(NE,NW);
+ var P1=d.map(function(){return[0,0,0]}),P2=d.map(function(){return[0,0,0]}),s1=0,s2=0;
+ w1.forEach(function(w,jj){s1+=w;pre.forEach(function(p,ii){var m=pred(p,1,jj);for(var c=0;c<3;c++)P1[ii][c]+=w*m[c]})});
+ for(j=0;j<NA;j++)for(k=0;k<NE;k++)for(l=0;l<NW;l++){var w=Math.exp(LP2[idx++]-m2);mA[j]+=w;mE[k]+=w;mW[l]+=w;mAE[j][k]+=w;mAW[j][l]+=w;mEW[k][l]+=w;s2+=w;
+  if(w>1e-6)pre.forEach(function(p,ii){var m=pred(p,1/(1+Math.exp(-(p.E-ET[k])/WW[l])),j);for(var c=0;c<3;c++)P2[ii][c]+=w*m[c]})}
+ var sa1=stat(A,w1),sa2=stat(A,mA),se=stat(ET,mE),sw=stat(WW,mW);
+ function f(v,dc){return v.toFixed(dc)}
+ var chi=function(L){return f(-2*L,1)},ml1=-1e300,ml2=-1e300;
+ L1.forEach(function(x,jj){if(PA[jj]>0&&x>ml1)ml1=x});L2.forEach(function(x,ii){if(isFinite(LP2[ii])&&x>ml2)ml2=x});
+ $('res').innerHTML='<tr><th>Model</th><th>Parameters</th><th>ln BF</th><th>min χ²</th></tr>'+
+ '<tr><td>Baryon stopping</td><td>none</td><td>0</td><td>'+chi(L0)+'</td></tr>'+
+ '<tr><td>Quark + recomb.</td><td>α₁₁ '+f(sa1[0],2)+' ± '+f(sa1[1],2)+'</td><td>'+f(lz1-L0,2)+'</td><td>'+chi(ml1)+'</td></tr>'+
+ '<tr><td>Switch</td><td>α₁₁ '+f(sa2[0],2)+' ± '+f(sa2[1],2)+'<br>E_tr '+f(se[0],1)+' ± '+f(se[1],1)+'<br>w '+f(sw[0],1)+' ± '+f(sw[1],1)+'</td><td>'+f(lz2-L0,2)+'</td><td>'+chi(ml2)+'</td></tr>'+
+ '<tr><td colspan="4" style="text-align:left;color:var(--fg2)">'+((uw?3:2)*n)+' data points</td></tr>';
+ var E=d.map(function(r){return r[0]}),nm=['ω = κ₂/κ₁','Sσ = κ₃/κ₂','κσ² = κ₄/κ₂'];
+ for(var c=0;c<3;c++){
+  var ser=[{y:pre.map(function(p){return pred(p,0,0)[c]}),c:'#888780',w:1.5,d:[5,3]},{y:P1.map(function(v){return v[c]/s1}),c:'#378ADD',w:1.5},{y:P2.map(function(v){return v[c]/s2}),c:'#F28C28',w:2.5}];
+  chart(G[c],nm[c]+' vs energy (GeV)',E,ser,{y:d.map(function(r){return r[3+2*c]}),e:d.map(function(r){return r[4+2*c]})})}
+ hist(G[3],'posterior of α₁₁',A,[{y:PA,c:'#888780',d:[4,3]},{y:w1,c:'#378ADD'},{y:mA,c:'#F28C28'}],false,2);
+ hist(G[4],'switch energy E_tr (GeV)',ET,[{y:PE,c:'#888780',d:[4,3]},{y:mE,c:'#F28C28'}],true,1);
+ hist(G[5],'switch width w (GeV)',WW,[{y:PW,c:'#888780',d:[4,3]},{y:mW,c:'#F28C28'}],false,1);
+ corner(A,ET,WW,[PA,PE,PW],[mA,mE,mW],w1,[mAE,mAW,mEW],[sa2[0],se[0],sw[0]])}
+$('data').addEventListener('input',function(){MODE='user'});
+$('uw').addEventListener('change',fit);
+['rel','kw','pa','pe','pw'].forEach(function(i){$(i).addEventListener('input',fit)});
+$('dg').addEventListener('click',function(){$('data').value=DIG;MODE='dig';fit()});
+$('fit').addEventListener('click',fit);
+$('dm').addEventListener('click',function(){demo();fit()});
+$('data').value=DIG;fit();
+</script>
+</body>
+</html>
