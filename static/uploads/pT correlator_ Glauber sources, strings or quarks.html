@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>pT correlator: Glauber sources, strings or quarks</title>
+<style>
+:root{box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+--bg:#f6f5f1;--card:#fff;--fg:#1f1e1b;--fg2:#6b6a64;--line:#d9d6cc;--accent:#f28c28}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1b19;--card:#262624;--fg:#f1efe8;--fg2:#a8a69c;--line:#3a3935}}
+:root[data-theme="dark"]{--bg:#1b1b19;--card:#262624;--fg:#f1efe8;--fg2:#a8a69c;--line:#3a3935}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:600px;margin:0 auto;padding:16px}
+h1{font-size:20px;font-weight:500;margin:0 0 4px}h2{font-size:14px;font-weight:500;margin:0 0 6px}
+p{margin:0 0 10px}.sub,.note{color:var(--fg2);font-size:13px}
+.warn{background:var(--card);border:1px solid var(--accent);border-radius:8px;padding:8px 10px;font-size:13px;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}
+canvas{width:100%;height:auto;display:block}
+textarea{width:100%;height:130px;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px}
+select{font:inherit;font-size:14px;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:5px 6px;max-width:100%}
+.r2{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;margin-bottom:8px;font-size:14px}
+.r2 input[type=range]{grid-column:1/3;width:100%;accent-color:var(--accent)}.r2 output{font-weight:500}
+.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+button{font:inherit;font-size:14px;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button.p{background:var(--accent);border-color:var(--accent);color:#1f1e1b}
+button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--fg2);margin-bottom:4px}
+.leg i{display:inline-block;width:16px;height:0;border-top:2px solid;vertical-align:middle;margin-right:5px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:right;padding:5px 6px;border-bottom:1px solid var(--line);font-weight:400;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+details{font-size:13px;color:var(--fg2)}summary{cursor:pointer;color:var(--fg);font-size:14px}
+pre{white-space:pre-wrap;font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;margin:8px 0 0;color:var(--fg)}
+</style>
+</head>
+<body>
+<main>
+<h1>pT correlator: Glauber sources, strings or quarks</h1>
+<p class="sub">Source number comes from Glauber N_part and N_coll. A switch turns wounded nucleons into either 3 constituent quarks or 2 strings per collision. Fit to both centralities at once.</p>
+<div class="warn" id="wn"></div>
+
+<div class="card">
+<h2>Data</h2>
+<textarea id="data" spellcheck="false" aria-label="Data table"></textarea>
+<p class="note" style="margin-top:6px">Columns: √sNN, √C_pT/⟨pT⟩ in %, error, class (0 = 0-5%, 1 = 30-40%).</p>
+<div class="btns"><button class="p" id="fit">Fit</button><button id="dg">Reload digitized STAR data</button></div>
+</div>
+
+<div class="card">
+<h2>Model inputs (held fixed)</h2>
+<div class="r2"><label for="s">Strings per NN collision</label><output id="so"></output><input type="range" id="s" min="1" max="4" step="0.1" value="2"></div>
+<div class="r2"><label for="h0">Hadrons per source at 10 GeV</label><output id="h0o"></output><input type="range" id="h0" min="1" max="8" step="0.1" value="3"></div>
+<div class="r2"><label for="h1">Growth per unit ln E (hadrons per source)</label><output id="h1o"></output><input type="range" id="h1" min="0" max="3" step="0.05" value="1"></div>
+<div class="r2"><label for="dy">Window width Δy (α = Δy / 2y_beam)</label><output id="dyo"></output><input type="range" id="dy" min="0.5" max="4" step="0.1" value="1"></div>
+<div class="r2"><label for="ks">Source pT shape k (larger = narrower)</label><output id="kso"></output><input type="range" id="ks" min="0.5" max="10" step="0.1" value="2"></div>
+</div>
+
+<div class="card">
+<div class="r2"><label for="sc">Scenario shown in the plots</label><select id="sc"><option value="s">Strings</option><option value="q">Constituent quarks</option></select></div>
+<div class="leg">
+<span><i style="border-color:#F28C28;border-top-width:3px"></i>0-5% switch</span>
+<span><i style="border-color:#F28C28;border-top-style:dashed"></i>0-5% no switch</span>
+<span><i style="border-color:#378ADD;border-top-width:3px"></i>30-40% switch</span>
+<span><i style="border-color:#378ADD;border-top-style:dashed"></i>30-40% no switch</span>
+</div>
+<canvas id="c0" role="img" aria-label="pT correlator versus energy for both centralities with data and model curves"></canvas>
+<canvas id="c1" role="img" aria-label="Sources per participant versus energy"></canvas>
+<canvas id="c2" role="img" aria-label="Hadrons per source versus energy"></canvas>
+<p class="note">Top: posterior predictive means against the data. Middle and bottom: sources per wounded nucleon and hadrons per source in the switch model at the posterior mean E_tr and w.</p>
+</div>
+
+<div class="card">
+<h2>Model comparison</h2>
+<div class="tw"><table id="res"></table></div>
+<p class="note">ln BF is against constituent quarks without a switch. a is the number of initial sources per participant. Priors: a log-uniform 0.3-4, E_tr log-uniform 2.5-50 GeV, w uniform 0.5-10 GeV.</p>
+</div>
+
+<div class="card">
+<h2>Posteriors and priors</h2>
+<div class="leg"><span><i style="border-color:#888780;border-top-style:dashed"></i>prior</span><span><i style="border-color:#378ADD"></i>quarks</span><span><i style="border-color:#F28C28"></i>strings</span></div>
+<canvas id="c3" role="img" aria-label="Posterior of sources per participant"></canvas>
+<canvas id="c4" role="img" aria-label="Posterior of switch energy"></canvas>
+<canvas id="c5" role="img" aria-label="Posterior of switch width"></canvas>
+</div>
+
+<div class="card">
+<details><summary>Model and inputs</summary>
+<pre>Glauber    N_part(E), N_coll(E) for 0-5% and 30-40%
+           Monte Carlo Au+Au, Woods-Saxon, b classes,
+           σ_NN from 24 mb (3 GeV) to 42 mb (200 GeV)
+Sources    N_s = a N_part f_eff,  f_eff = 1 + (f-1) β(E)
+           β = 1/(1+exp(-(E-E_tr)/w))
+           quarks:  f = 3
+           strings: f = s N_coll / N_part
+pT         q ~ Gamma(k, mean 1/f_eff): total stopped pT fixed
+Splitting  n̄_x(E) = max(1, c0 + c1 ln(E/10))  hadrons per
+           quark or per string
+           total hadrons per participant = f n̄_x
+           n̄ = max(1, f n̄_x / f_eff)  hadrons per source
+           n = 1 + Poisson(n̄-1), collinear
+Window     α(E) = Δy / (2 y_beam)
+C          = ⟨Σ_{i≠j} δp_i δp_j⟩ / ⟨N(N-1)⟩, plotted as √C/⟨pT⟩</pre>
+<p class="note" style="margin-top:8px">The Glauber numbers are my own quick Monte Carlo with a minimum-distance cut omitted and impact-parameter centrality classes, so they are approximate (for example 0-5%: N_part 328 at 3 GeV, 352 at 200 GeV; 30-40%: 92 to 112). The σ_NN values are rough interpolations. N_coll(E) follows σ_NN. The model has no flow, no temperature or volume fluctuations, no string fusion, and the fit treats errors as independent and Gaussian.</p>
+</details>
+</div>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)},D=2,LF=[0],MODE='dig',IN={},DIG='3.0,1.379,0.123,0\n3.2,1.334,0.119,0\n3.5,1.08,0.111,0\n3.9,0.942,0.109,0\n4.5,0.84,0.1,0\n5.2,0.54,0.122,0\n7.7,0.523,0.131,0\n7.7,0.45,0.06,0\n7.7,0.21,0.32,0\n11.5,0.77,0.04,0\n14.6,0.873,0.044,0\n19.6,0.94,0.047,0\n27,0.969,0.048,0\n39,1.03,0.052,0\n62.4,1.079,0.054,0\n200,1.184,0.059,0\n3.0,3.22,0.161,1\n3.2,3.396,0.1698,1\n3.5,2.784,0.1392,1\n3.9,2.784,0.1392,1\n4.5,2.801,0.1401,1\n5.2,2.35,0.1175,1\n7.7,1.904,0.0952,1\n7.7,2.05,0.1025,1\n7.7,1.733,0.0867,1\n11.5,1.858,0.0929,1\n14.6,1.908,0.0954,1\n19.6,1.952,0.0976,1\n27,2.039,0.102,1\n39,2.143,0.1071,1\n62.4,2.066,0.1033,1\n200,2.13,0.1065,1';
+var GE=[3.0, 3.2, 3.5, 3.9, 4.5, 5.2, 7.7, 11.5, 14.6, 19.6, 27, 39, 62.4, 200],GP=[[327.8, 329.2, 331.0, 332.2, 334.4, 336.4, 341.2, 341.0, 342.3, 341.3, 344.0, 344.5, 345.9, 352.0], [92.4, 92.7, 93.6, 95.3, 96.5, 97.9, 101.6, 101.6, 102.1, 103.0, 103.6, 104.6, 106.0, 112.4]],GC=[[616.8, 628.0, 645.0, 664.9, 693.0, 720.8, 797.6, 809.5, 821.5, 825.4, 855.5, 880.2, 912.5, 1077.0], [122.6, 124.4, 127.2, 132.7, 137.5, 143.0, 158.7, 160.0, 162.6, 166.2, 169.9, 174.6, 181.9, 216.3]];
+for(var i=1;i<200;i++)LF.push(LF[i-1]+Math.log(i));
+function pois(l,n){return l>0?Math.exp(-l+n*Math.log(l)-LF[n]):(n==0?1:0)}
+function pre(al,nb,m,ks){
+ var mq=1/m,th=mq/ks,Eq2=th*th*ks*(ks+1),pb=mq/nb,lam=nb-1,ES2=0,Emn=0,Em2=0,I2=0;
+ for(var e=0;e<90;e++){var n=e+1,pn=pois(lam,e);if(pn<1e-13)continue;
+  for(var mm=0;mm<=n;mm++){var pr=Math.exp(LF[n]-LF[mm]-LF[n-mm]+(mm?mm*Math.log(al):0)+((n-mm)?(n-mm)*Math.log(1-al):0));
+   ES2+=pn*pr*mm*(mm+1)/(n*(n+1));Emn+=pn*pr*mm*mm/n;Em2+=pn*pr*mm*mm}
+  I2+=pn*2/(n+1)}
+ var Dv=Eq2*ES2-2*pb*mq*Emn+pb*pb*Em2,Sg=Eq2*al*I2-2*pb*al*mq+pb*pb*al*nb;
+ return{Nu:Dv-Sg,Vn:nb*al*(1-al)+al*al*(nb-1),al:al,nb:nb,pb:pb,m:m}}
+function Cv(P,N0){var Ns=P.m*N0;return P.Nu/(P.Vn-P.al*P.nb+Ns*P.al*P.al*P.nb*P.nb)/(P.pb*P.pb)}
+var GX=GE.map(Math.log);
+function glb(E,c){var x=Math.log(E),i=0;if(x>=GX[GX.length-1])i=GX.length-2;else if(x>GX[0])while(GX[i+1]<x)i++;
+ var t=Math.min(1,Math.max(0,(x-GX[i])/(GX[i+1]-GX[i])));return{np:GP[c][i]*(1-t)+GP[c][i+1]*t,nc:GC[c][i]*(1-t)+GC[c][i+1]*t}}
+function readIn(){IN={s:+$('s').value,c0:+$('h0').value,c1:+$('h1').value,dy:+$('dy').value,ks:+$('ks').value};
+ $('so').textContent=IN.s.toFixed(1);$('h0o').textContent=IN.c0.toFixed(1);$('h1o').textContent=IN.c1.toFixed(2);$('dyo').textContent=IN.dy.toFixed(1);$('kso').textContent=IN.ks.toFixed(1)}
+function mapA(E){var g=Math.max(1.0001,E/1.876),yb=Math.log(g+Math.sqrt(g*g-1));return Math.min(0.95,IN.dy/(2*yb))}
+function nx(E){return Math.max(1,IN.c0+IN.c1*Math.log(E/10))}
+function fsc(sc,E,c){if(sc=='q')return 3;var g=glb(E,c);return Math.max(1,IN.s*g.nc/g.np)}
+function geo(sc,E,c,b){var f=fsc(sc,E,c),x=1+(f-1)*b;return pre(mapA(E),Math.max(1,f*nx(E)/x),x,IN.ks)}
+function cval(P,a,E,c){var v=Cv(P,a*glb(E,c).np);return 100*(v>0?Math.sqrt(v):0)}
+var BET=function(E,et,w){return 1/(1+Math.exp(-(E-et)/w))};
+function parse(){var rows=[];$('data').value.split('\n').forEach(function(l){var v=l.trim().split(/[\s,;]+/).map(parseFloat);
+ if(v.length>=3&&v.slice(0,3).every(isFinite)&&v[0]>0&&v[2]>0)rows.push([v[0],v[1],v[2],v.length>3&&v[3]==1?1:0])});rows.sort(function(a,b){return a[0]-b[0]});return rows}
+function setup(id,w,h){var c=$(id);c.width=w*D;c.height=h*D;var g=c.getContext('2d');g.scale(D,D);return g}
+var G=[setup('c0',360,240),setup('c1',360,140),setup('c2',360,140),setup('c3',360,120),setup('c4',360,120),setup('c5',360,120)];
+function col(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||'#888'}
+function chart(g,title,E,ser,pts,logy){
+ var W=360,H=g.canvas.height/D,l=44,r=10,t=22,b=24,fg=col('--fg2'),ln=col('--line'),lo=1e9,hi=-1e9,T=logy?Math.log10:function(x){return x};
+ ser.forEach(function(s){s.y.forEach(function(v){lo=Math.min(lo,T(v));hi=Math.max(hi,T(v))})});
+ pts.forEach(function(p){p.y.forEach(function(v,i){lo=Math.min(lo,T(Math.max(0,v-p.e[i])));hi=Math.max(hi,T(v+p.e[i]))})});
+ var pd=(hi-lo)*0.06||0.1;lo-=pd;hi+=pd;var x0=Math.log(2.8),x1=Math.log(210);
+ function X(e){return l+(Math.log(e)-x0)/(x1-x0)*(W-l-r)}function Y(v){return H-b-(T(v)-lo)/(hi-lo)*(H-b-t)}
+ g.clearRect(0,0,W,H);g.font='11px sans-serif';g.fillStyle=fg;g.textAlign='left';g.fillText(title,4,13);
+ g.lineWidth=0.5;g.strokeStyle=ln;
+ for(var i=0;i<4;i++){var v=lo+i*(hi-lo)/3;if(logy)v=Math.pow(10,v);g.beginPath();g.moveTo(l,Y(v));g.lineTo(W-r,Y(v));g.stroke();g.textAlign='right';g.fillStyle=fg;g.fillText(v.toPrecision(2),l-4,Y(v)+4)}
+ g.textAlign='center';[3,5,10,20,50,100,200].forEach(function(e){g.fillStyle=fg;g.fillText(e,X(e),H-9)});
+ ser.forEach(function(s){g.beginPath();E.forEach(function(e,i){if(i)g.lineTo(X(e),Y(s.y[i]));else g.moveTo(X(e),Y(s.y[i]))});g.strokeStyle=s.c;g.lineWidth=s.w;g.setLineDash(s.d||[]);g.stroke();g.setLineDash([])});
+ pts.forEach(function(p){g.strokeStyle=p.c;g.fillStyle=p.c;g.lineWidth=1;
+  p.x.forEach(function(e,i){g.beginPath();g.moveTo(X(e),Y(Math.max(0,p.y[i]-p.e[i])));g.lineTo(X(e),Y(p.y[i]+p.e[i]));g.stroke();g.beginPath();g.arc(X(e),Y(p.y[i]),2.5,0,6.283);g.fill()})});
+ g.textAlign='left'}
+function hist(g,title,xs,ser,dec){
+ var W=360,H=120,l=10,r=10,t=22,b=24,fg=col('--fg2'),x0=Math.log(xs[0]),x1=Math.log(xs[xs.length-1]);
+ function X(x){return l+(Math.log(x)-x0)/(x1-x0)*(W-l-r)}
+ g.clearRect(0,0,W,H);g.font='11px sans-serif';g.fillStyle=fg;g.textAlign='left';g.fillText(title,4,13);
+ g.strokeStyle=fg;g.lineWidth=0.5;g.beginPath();g.moveTo(l,H-b);g.lineTo(W-r,H-b);g.stroke();
+ ser.forEach(function(s){var m=Math.max.apply(null,s.y)||1;g.beginPath();xs.forEach(function(x,i){var y=H-b-s.y[i]/m*(H-b-t);if(i)g.lineTo(X(x),y);else g.moveTo(X(x),y)});g.strokeStyle=s.c;g.lineWidth=2;g.setLineDash(s.d||[]);g.stroke();g.setLineDash([])});
+ g.textAlign='center';g.fillStyle=fg;for(var k=0;k<5;k++){var i=Math.round(k*(xs.length-1)/4);g.fillText(xs[i].toFixed(dec),X(xs[i]),H-8)}g.textAlign='left'}
+function lse(a){var m=Math.max.apply(null,a),s=0;a.forEach(function(x){s+=Math.exp(x-m)});return m+Math.log(s)}
+function stat(xs,ws){var s=0,m=0,v=0;ws.forEach(function(w,i){s+=w;m+=w*xs[i]});m/=s;ws.forEach(function(w,i){v+=w*Math.pow(xs[i]-m,2)});return[m,Math.sqrt(v/s)]}
+var RES=null;
+function fit(){
+ readIn();var d=parse(),n=d.length;
+ $('wn').innerHTML=MODE=='dig'?'<b>Digitized from the STAR figure.</b> 0-5% and 30-40%, BES-I, BES-II fixed target and collider. The y-axis is read as √C_pT/⟨pT⟩ in %. 0-5% fixed-target errors are the plotted band widths. Other points show no visible error, so I used about 5% of the value (marker size). Reading error is about 1 px. Three rows at 7.7 GeV per centrality are the FXT, collider and BES-I points.':'Fitting the pasted table ('+n+' points).';
+ if(n<4){$('res').innerHTML='<tr><td>Need at least 4 valid rows.</td></tr>';return}
+ var NA=14,NE=28,NW=10,A=[],ET=[],WW=[],i,j,k,l,q;
+ for(j=0;j<NA;j++)A.push(0.3*Math.pow(40/3,j/(NA-1)));
+ for(k=0;k<NE;k++)ET.push(2.5*Math.pow(20,k/(NE-1)));
+ for(l=0;l<NW;l++)WW.push(0.5+9.5*l/(NW-1));
+ function lla(P){var L=[];for(var j=0;j<NA;j++){var s=0;for(var i=0;i<n;i++){s+=Math.pow((cval(P[i],A[j],d[i][0],d[i][3])-d[i][1])/d[i][2],2)}L.push(-0.5*s)}return L}
+ var Ed=[];for(i=0;i<=23;i++)Ed.push(3*Math.pow(200/3,i/23));
+ var models=[];
+ ['q','s'].forEach(function(sc){
+  var P0=d.map(function(r){return geo(sc,r[0],r[3],0)}),L0=lla(P0),z0=lse(L0)-Math.log(NA),wA=L0.map(function(x){return Math.exp(x-lse(L0))});
+  var Y=[Ed.map(function(){return 0}),Ed.map(function(){return 0})];
+  var PD=[Ed.map(function(E){return geo(sc,E,0,0)}),Ed.map(function(E){return geo(sc,E,1,0)})];
+  wA.forEach(function(w,j){for(var c=0;c<2;c++)Ed.forEach(function(E,qq){Y[c][qq]+=w*cval(PD[c][qq],A[j],E,c)})});
+  models.push({sc:sc,sw:false,z:z0,L:L0,mA:wA,Y:Y,sa:stat(A,wA),chi:-2*Math.max.apply(null,L0)});
+  var L1=[],lc=[];
+  for(k=0;k<NE;k++)for(l=0;l<NW;l++){var Pk=d.map(function(r){return geo(sc,r[0],r[3],BET(r[0],ET[k],WW[l]))});lc.push(lla(Pk))}
+  lc.forEach(function(a){a.forEach(function(v){L1.push(v)})});
+  var zz=lse(L1),z1=zz-Math.log(L1.length),mA=new Array(NA).fill(0),mE=new Array(NE).fill(0),mW=new Array(NW).fill(0),Y1=[Ed.map(function(){return 0}),Ed.map(function(){return 0})],s1=0,ix=0;
+  for(k=0;k<NE;k++)for(l=0;l<NW;l++){var ws=[],wt=0;for(j=0;j<NA;j++){var w=Math.exp(L1[ix++]-zz);ws.push(w);wt+=w;mA[j]+=w}
+   mE[k]+=wt;mW[l]+=wt;
+   if(wt>1e-6){s1+=wt;for(var c=0;c<2;c++){var PDc=Ed.map(function(E){return geo(sc,E,c,BET(E,ET[k],WW[l]))});
+    for(j=0;j<NA;j++)if(ws[j]>1e-7)for(q=0;q<Ed.length;q++)Y1[c][q]+=ws[j]*cval(PDc[q],A[j],Ed[q],c)}}}
+  models.push({sc:sc,sw:true,z:z1,L:L1,mA:mA,mE:mE,mW:mW,Y:Y1.map(function(y){return y.map(function(v){return v/s1})}),sa:stat(A,mA),se:stat(ET,mE),sw_:stat(WW,mW),chi:-2*Math.max.apply(null,L1)})});
+ RES={d:d,Ed:Ed,A:A,ET:ET,WW:WW,models:models,n:n};
+ var z00=models[0].z;function f(v,dc){return v.toFixed(dc)}function pm(x,dc){return f(x[0],dc)+' ± '+f(x[1],dc)}
+ var nm=['Quarks, no switch','Quarks, switch','Strings, no switch','Strings, switch'];
+ $('res').innerHTML='<tr><th>Model</th><th>Parameters</th><th>ln BF</th><th>min χ²</th></tr>'+models.map(function(m,i){
+  return '<tr><td>'+nm[i]+'</td><td>a '+pm(m.sa,2)+(m.sw?'<br>E_tr '+pm(m.se,1)+'<br>w '+pm(m.sw_,1):'')+'</td><td>'+f(m.z-z00,1)+'</td><td>'+f(m.chi,1)+'</td></tr>'}).join('')+
+  '<tr><td colspan="4" style="text-align:left;color:var(--fg2)">'+n+' data points</td></tr>';
+ draw()}
+function draw(){
+ if(!RES)return;var R=RES,sc=$('sc').value,Ed=R.Ed,d=R.d,mo=R.models.filter(function(m){return m.sc==sc}),m0=mo[0],m1=mo[1];
+ var pts=[0,1].map(function(c){var rows=d.filter(function(r){return r[3]==c});return{c:c?'#378ADD':'#F28C28',x:rows.map(function(r){return r[0]}),y:rows.map(function(r){return r[1]}),e:rows.map(function(r){return r[2]})}});
+ chart(G[0],'√C_pT / ⟨pT⟩ (%) vs √sNN (GeV)',Ed,[{y:m0.Y[0],c:'#F28C28',w:1.3,d:[5,3]},{y:m0.Y[1],c:'#378ADD',w:1.3,d:[5,3]},{y:m1.Y[0],c:'#F28C28',w:2.5},{y:m1.Y[1],c:'#378ADD',w:2.5}],pts,false);
+ var se=m1.se[0],sw=m1.sw_[0],fE=[0,1].map(function(c){return Ed.map(function(E){var f=fsc(sc,E,c);return 1+(f-1)*BET(E,se,sw)})}),
+  nb=[0,1].map(function(c){return Ed.map(function(E,qq){var f=fsc(sc,E,c);return Math.max(1,f*nx(E)/fE[c][qq])})});
+ var none=[];
+ chart(G[1],'sources per wounded nucleon f_eff vs √sNN (GeV)',Ed,[{y:fE[0],c:'#F28C28',w:2.2},{y:fE[1],c:'#378ADD',w:2.2}],none,false);
+ chart(G[2],'hadrons per source n̄ vs √sNN (GeV)',Ed,[{y:nb[0],c:'#F28C28',w:2.2},{y:nb[1],c:'#378ADD',w:2.2}],none,false);
+ var u=function(N){return new Array(N).fill(1)},M=R.models;
+ hist(G[3],'initial sources per participant a',R.A,[{y:u(R.A.length),c:'#888780',d:[4,3]},{y:M[0].mA,c:'#378ADD',d:[5,3]},{y:M[1].mA,c:'#378ADD'},{y:M[2].mA,c:'#F28C28',d:[5,3]},{y:M[3].mA,c:'#F28C28'}],2);
+ hist(G[4],'switch energy E_tr (GeV)',R.ET,[{y:u(R.ET.length),c:'#888780',d:[4,3]},{y:M[1].mE,c:'#378ADD'},{y:M[3].mE,c:'#F28C28'}],1);
+ hist(G[5],'switch width w (GeV)',R.WW.map(function(x){return x}),[{y:u(R.WW.length),c:'#888780',d:[4,3]},{y:M[1].mW,c:'#378ADD'},{y:M[3].mW,c:'#F28C28'}],1)}
+$('data').addEventListener('input',function(){MODE='user'});
+$('fit').addEventListener('click',fit);
+$('dg').addEventListener('click',function(){$('data').value=DIG;MODE='dig';fit()});
+$('sc').addEventListener('input',draw);
+['s','h0','h1','dy','ks'].forEach(function(i){$(i).addEventListener('input',fit)});
+$('data').value=DIG;fit();
+</script>
+</body>
+</html>
