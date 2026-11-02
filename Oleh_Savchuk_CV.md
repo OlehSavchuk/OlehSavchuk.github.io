@@ -60,7 +60,7 @@ Heavy-Ion Collisions • QCD Equation of State • Gravity • Machine Learning 
 
 **Programming Languages:** C++, Python, Pybind11, Java, C, Fortran, OpenMP, MPI, CUDA
 
-**Scientific Software:** UrQMD, SMASH, Mathematica, ROOT, Keras, TensorFlow, LaTeX, Maple, MATLAB, Comsol Multiphysics, HyperChem, Visual Molecular Dynamics
+**Scientific Software:** UrQMD, SMASH, Mathematica, ROOT, Boost, JAX, Keras, TensorFlow, LaTeX, Maple, MATLAB, Comsol Multiphysics, HyperChem, Visual Molecular Dynamics
 
 **Core Competencies:** Data Analysis and Visualization, Numerical Methods, Monte Carlo Simulations, High-Performance Computing
 
