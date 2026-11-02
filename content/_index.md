@@ -43,7 +43,7 @@ sections:
 
         Using Bayesian inference and machine learning, I extract signal from noisy, high-variance data. My toolkit is high-performance C++ and Python, with a focus on robust numerical methods, algorithmic optimization, and predictive data analysis.
 
-        If you would like to collaborate, please [get in touch](mailto:savchukolegv@gmail.com).
+        I am now looking to apply these skills to quantitative finance. If you would like to collaborate or talk, please [get in touch](mailto:savchukolegv@gmail.com).
     design:
       columns: '1'
 
@@ -60,7 +60,7 @@ sections:
         </div>
         <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
         <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Statistics &amp; Machine Learning</h3>
-        <p style="margin:0;line-height:1.9;">Bayesian inference · Emulators · Normalizing flows · JAX · TensorFlow · Keras</p>
+        <p style="margin:0;line-height:1.9;">Bayesian inference · MCMC (NUTS) · Emulators · Normalizing flows · JAX · NumPyro · PyTorch · TensorFlow · Keras</p>
         </div>
         <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
         <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Physics &amp; Simulation</h3>
@@ -68,9 +68,14 @@ sections:
         </div>
         <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
         <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Analysis &amp; Tools</h3>
-        <p style="margin:0;line-height:1.9;">ROOT · Mathematica · MATLAB · Maple · LaTeX · Data visualization</p>
+        <p style="margin:0;line-height:1.9;">pandas · Polars · ROOT · Mathematica · MATLAB · Maple · LaTeX · Data visualization</p>
+        </div>
+        <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
+        <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Quantitative Finance</h3>
+        <p style="margin:0;line-height:1.9;">Limit order book matching (C++20) · Backtesting · Momentum strategies · Sharpe ratio · Return and drawdown analysis</p>
         </div>
         </div>
+        <p style="margin:1rem 0 0;font-size:.9rem;opacity:.75;">My quantitative finance skills come from self-directed projects, listed below.</p>
     design:
       columns: '1'
 
@@ -102,6 +107,8 @@ sections:
     content:
       title: Recent Publications
       text: ''
+      # Show only the latest papers here; the Publications page lists everything
+      count: 8
       filters:
         folders:
           - publications
@@ -119,33 +126,4 @@ sections:
     design:
       view: card
 
-  - block: collection
-    id: news
-    content:
-      title: Recent News
-      subtitle: ''
-      text: ''
-      # Page type to display. E.g. post, talk, publication...
-      page_type: blog
-      # Choose how many pages you would like to display (0 = all pages)
-      count: 10
-      # Filter on criteria
-      filters:
-        author: ''
-        category: ''
-        tag: ''
-        exclude_featured: false
-        exclude_future: false
-        exclude_past: false
-        publication_type: ''
-      # Choose how many pages you would like to offset by
-      offset: 0
-      # Page order: descending (desc) or ascending (asc) date.
-      order: desc
-    design:
-      # Choose a layout view
-      view: card
-      # Reduce spacing
-      spacing:
-        padding: [0, 0, 0, 0]
 ---

@@ -1,22 +1,25 @@
 main:
   - name: Home
-    url: '/'                 # Goes to the main homepage
+    url: '/'
     weight: 10
-  - name: Publications
-    url: '/publications/'     # REMOVED #. Standard Hugo folder is usually singular.
+  - name: Skills
+    url: '/#skills'
     weight: 20
-  - name: Talks
-    url: '/#talks'           # Keep # if you still want this on the homepage
-    weight: 30
   - name: Projects
-    url: '/#projects' 
-    weight: 40  
-  - name: CV
-    url: 'uploads/Oleh_Savchuk_CV.pdf' 
+    url: '/#projects'
+    weight: 30
+  - name: Publications
+    url: '/publications/'
+    weight: 40
+  - name: Talks
+    url: '/#talks'
     weight: 50
-  - name: Plots
-    url: '/plots/'           # REMOVED # to point to a new page
+  - name: CV
+    url: '/uploads/Oleh_Savchuk_CV.pdf'
     weight: 60
-  - name: Hobbies
-    url: '/hobbies/'         # REMOVED # to point to a new page
+  - name: Plots
+    url: '/plots/'
     weight: 70
+  - name: Hobbies
+    url: '/hobbies/'
+    weight: 80
