@@ -3,7 +3,7 @@ title: "Light Nuclei Formation in Heavy-Ion Collisions"
 date: '2026-07-15T00:00:00Z'
 event: "TMEP"
 location: "Online"
-summary: "Light nuclei production in heavy-ion collisions"
+summary: "I present my approach to light nuclei production in heavy-ion collisions."
 
 authors:
   - Oleh Savchuk

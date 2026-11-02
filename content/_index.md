@@ -39,11 +39,41 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        As a theoretical physicist, I specialize in translating complex, stochastic phenomena into rigorous mathematical models and scalable computational workflows. My expertise centers on designing advanced probabilistic models and implementing them through highly optimized, parallelized software architecture. By leveraging deep Bayesian inference and machine learning frameworks, I extract meaningful signals from exceptionally noisy, high-variance datasets. My technical foundation is built on high-performance C++ and Python development, focusing on robust numerical implementation, algorithmic optimization, and predictive data analysis.
-        
-        If you wish to collaborate, please feel free to reach out to me.
+        I am a theoretical physicist who turns complex, stochastic phenomena into rigorous mathematical models and scalable computational workflows. I design probabilistic models and implement them as optimized, parallelized software.
+
+        Using Bayesian inference and machine learning, I extract signal from noisy, high-variance data. My toolkit is high-performance C++ and Python, with a focus on robust numerical methods, algorithmic optimization, and predictive data analysis.
+
+        If you would like to collaborate, please [get in touch](mailto:savchukolegv@gmail.com).
     design:
       columns: '1'
+
+  - block: markdown
+    id: skills
+    content:
+      title: '🛠️ Skills'
+      subtitle: ''
+      text: |-
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+        <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
+        <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Programming &amp; HPC</h3>
+        <p style="margin:0;line-height:1.9;">C++ · Python · Pybind11 · CUDA · OpenMP · MPI · Fortran · Java · C</p>
+        </div>
+        <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
+        <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Statistics &amp; Machine Learning</h3>
+        <p style="margin:0;line-height:1.9;">Bayesian inference · Emulators · Normalizing flows · TensorFlow · Keras</p>
+        </div>
+        <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
+        <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Physics &amp; Simulation</h3>
+        <p style="margin:0;line-height:1.9;">Transport models (UrQMD, SMASH) · Monte Carlo · Numerical methods</p>
+        </div>
+        <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
+        <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Analysis &amp; Tools</h3>
+        <p style="margin:0;line-height:1.9;">ROOT · Mathematica · MATLAB · Maple · LaTeX · Data visualization</p>
+        </div>
+        </div>
+    design:
+      columns: '1'
+
   - block: collection
     id: projects
     content:

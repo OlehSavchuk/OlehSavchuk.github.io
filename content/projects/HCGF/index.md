@@ -9,5 +9,7 @@ tags:
   - Heavy-Ion Collisions
   - Software
 ---
-This software library is designed to calculate light cluster production in heavy-ion collisions. The approach bypasses the complexities associated with the dynamical treatment of clusters within these simulations. Rather than tracking microscopic details—which would require modeling every possible reaction involving clusters and nuclei—the model relies on the thermalization of the fireball at the break-up stage to readily estimate cluster yields. As a result, the primary advantages of this approach are its computational speed, robustness, and simplicity. Furthermore, this method provides a stringent test for equilibration in heavy-ion collisions and enhances our understanding of dense nuclear matter, particularly by leveraging the high sensitivity of light clusters to the equation of state.
+I developed this software library to calculate light cluster production in heavy-ion collisions. It avoids the complexity of treating clusters dynamically in transport simulations: rather than tracking every possible reaction involving clusters and nuclei, I assume the fireball thermalizes at break-up and estimate cluster yields from that state.
+
+The main advantages are computational speed, robustness, and simplicity. The method also provides a stringent test of equilibration in heavy-ion collisions and, because light clusters are highly sensitive to the equation of state, improves my understanding of dense nuclear matter.
 <!--more-->

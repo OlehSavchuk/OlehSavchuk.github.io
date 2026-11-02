@@ -16,7 +16,7 @@ organizations:
     url: 'https://frib.msu.edu/'
     
 # Short bio displayed under profile picture
-bio: Postdoctoral researcher specializing in heavy-ion collision dynamics, transport models, and machine learning applications for the nuclear Equation of State.
+bio: I am a postdoctoral researcher specializing in heavy-ion collision dynamics, transport models, and machine learning applications to the nuclear equation of state.
 
 interests:
   - Relativistic Heavy-Ion Collisions
@@ -62,4 +62,6 @@ user_groups:
 
 ## About Me
 
-I am a theoretical physicist currently serving as a Postdoctoral Research Associate at the Facility for Rare Isotope Beams (FRIB) at Michigan State University. I hold a PhD in Theoretical Physics, alongside comprehensive foundational degrees in the field, which have deeply informed my approach to complex scientific problem-solving. My current work sits precisely at the intersection of high-energy nuclear physics, heavy-ion phenomenology, and advanced computational techniques. Operating in this highly dynamic space allows me to continually push the boundaries of many-body theory and quantum field theory while contributing to a historically rich scientific discipline.
+I am a theoretical physicist and Postdoctoral Research Associate at the Facility for Rare Isotope Beams (FRIB) at Michigan State University. I hold a PhD in Theoretical Physics, and my training in the field, from undergraduate through doctoral level, shapes how I approach complex scientific problems.
+
+My work sits at the intersection of high-energy nuclear physics, heavy-ion phenomenology, and advanced computational techniques. It lets me advance many-body theory and quantum field theory methods while contributing to a long-established scientific discipline.

@@ -1,6 +1,6 @@
 # Oleh Savchuk
 
-**Contact:** +1 (517) 980-2121 | savchukolegv@gmail.com
+**Contact:** savchukolegv@gmail.com
 
 ---
 
@@ -182,7 +182,7 @@ Heavy-Ion Collisions • QCD Equation of State • Gravity • Machine Learning 
 - Deconfinement effects in net-proton fluctuations, *15th Conference on Intersections of Particle and Nuclear Physics*, 2025
 - Net-proton fluctuations influenced by baryon stopping and quark deconfinement, *WPCF 2024*
 - Baryon Stopping Signal in Net-Proton Fluctuations, *2024 Fall Meeting of APS Division of Nuclear Physics*
-- Fluctuations and local charge conservation, *CERN-Ukraine 2024: "Past Present - Future" Conference*, Kyiv Ukraine
+- Fluctuations and local charge conservation, *CERN-Ukraine 2024: "Past Present - Future" Conference*, Kyiv, Ukraine
 - Correlations of conserved charges at finite density, *Quark Matter 2023*, Houston, Texas
 - Enhanced dilepton emission from a phase transition in dense matter, *Dense Nuclear Matter Equation of State from Heavy-Ion Collisions*, Seattle, WA, Dec 2022
 - Dilepton production from coarse grained UrQMD with a CMF equation of state, *Transport Meeting*, Frankfurt, Germany, April 2022

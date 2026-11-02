@@ -3,7 +3,7 @@ title: "Emulator and Theoretical Uncertainty"
 date: '2024-12-12T00:00:00Z'
 event: "JETSCAPE Bayesian Work Week"
 location: "Lawrence Berkeley National Laboratory"
-summary: "Efficient treatment of uncertainty in emulators and theory is discussed with focus on improving inference from the heavy-ion data"
+summary: "I discuss efficient treatment of uncertainty in emulators and theory, with a focus on improving inference from heavy-ion data."
 
 authors:
   - Oleh Savchuk
