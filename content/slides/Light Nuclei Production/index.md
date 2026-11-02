@@ -1,6 +1,6 @@
 ---
 title: Light Nuclei Formation in Heavy-Ion Collisions
-summary: Introduction to the hybrid description of light cluster production
+summary: An introduction to my hybrid description of light cluster production
 authors:
   - Oleh Savchuk
 tags:

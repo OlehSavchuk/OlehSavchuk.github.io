@@ -10,5 +10,5 @@ tags:
   - Machine Learning
 ---
 
-This project provides an example of building custom bijector layers in TensorFlow Probability, inspired by the Fourier Transform's success in physics problem-solving. It demonstrates how field configurations on a lattice can be efficiently sampled using an unsupervised learned probability distribution to enhance and accelerate field theory simulations.
+In this project I build custom bijector layers in TensorFlow Probability, inspired by the success of the Fourier transform in solving physics problems. It shows how field configurations on a lattice can be sampled efficiently from an unsupervised, learned probability distribution, which helps accelerate field theory simulations.
 <!--more-->

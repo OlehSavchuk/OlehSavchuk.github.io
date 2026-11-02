@@ -1,6 +1,6 @@
 # Oleh Savchuk
 
-**Contact:** +1 (517) 980-2121 | savchukolegv@gmail.com
+**Contact:** savchukolegv@gmail.com
 
 ---
 

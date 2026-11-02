@@ -16,7 +16,7 @@ organizations:
     url: 'https://frib.msu.edu/'
     
 # Short bio displayed under profile picture
-bio: Postdoctoral researcher specializing in heavy-ion collision dynamics, transport models, and machine learning applications for the nuclear Equation of State.
+bio: I am a postdoctoral researcher specializing in heavy-ion collision dynamics, transport models, and machine learning applications to the nuclear equation of state.
 
 interests:
   - Relativistic Heavy-Ion Collisions
