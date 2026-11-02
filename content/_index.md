@@ -39,9 +39,11 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        As a theoretical physicist, I specialize in translating complex, stochastic phenomena into rigorous mathematical models and scalable computational workflows. My expertise centers on designing advanced probabilistic models and implementing them through highly optimized, parallelized software architecture. By leveraging deep Bayesian inference and machine learning frameworks, I extract meaningful signals from exceptionally noisy, high-variance datasets. My technical foundation is built on high-performance C++ and Python development, focusing on robust numerical implementation, algorithmic optimization, and predictive data analysis.
-        
-        If you wish to collaborate, please feel free to reach out to me.
+        I am a theoretical physicist who turns complex, stochastic phenomena into rigorous mathematical models and scalable computational workflows. I design probabilistic models and implement them as optimized, parallelized software.
+
+        Using Bayesian inference and machine learning, I extract signal from noisy, high-variance data. My toolkit is high-performance C++ and Python, with a focus on robust numerical methods, algorithmic optimization, and predictive data analysis.
+
+        If you would like to collaborate, please [get in touch](mailto:savchukolegv@gmail.com).
     design:
       columns: '1'
   - block: collection
