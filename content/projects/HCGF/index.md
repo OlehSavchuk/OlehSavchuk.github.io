@@ -1,6 +1,7 @@
 ---
 title: Hybrid Coarse Graining Freeze-Out
 date: 2026-07-28
+featured: true
 links:
   - type: site
     url: https://github.com/OlehSavchuk/Hybrid-Coarse-Graining-Freeze-Out
