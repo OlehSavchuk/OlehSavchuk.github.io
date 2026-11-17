@@ -78,6 +78,7 @@ sections:
     id: projects
     content:
       title: Projects
+      count: 12
       filters:
         folders:
           - projects
