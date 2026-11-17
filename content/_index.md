@@ -60,7 +60,7 @@ sections:
         </div>
         <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
         <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Statistics &amp; Machine Learning</h3>
-        <p style="margin:0;line-height:1.9;">Bayesian inference · Emulators · Normalizing flows · TensorFlow · Keras</p>
+        <p style="margin:0;line-height:1.9;">Bayesian inference · Emulators · Normalizing flows · TensorFlow · Keras · JAX</p>
         </div>
         <div style="border:1px solid rgba(128,128,128,.35);border-radius:12px;padding:1.1rem 1.25rem;">
         <h3 style="margin:0 0 .6rem;font-size:1.05rem;">Physics &amp; Simulation</h3>
