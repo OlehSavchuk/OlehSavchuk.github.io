@@ -1,9 +1,9 @@
 ---
-title: Normalizing-Flow Fits of Femtoscopic Sources
+title: ML for Femtoscopy
 date: 2026-11-16
 links:
   - type: site
-    url: https://github.com/OlehSavchuk/fitting
+    url: https://github.com/OlehSavchuk/ML-for-Femtoscopy
 tags:
   - Normalizing Flow
   - Machine Learning
