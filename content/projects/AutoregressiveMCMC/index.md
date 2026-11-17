@@ -9,7 +9,7 @@ tags:
   - Probability & Statistics
   - MCMC
 ---
-I train an autoregressive neural network (a MADE-style model in TensorFlow) to sample a one-dimensional lattice φ⁴ field theory directly, so that configurations are independent draws rather than a slowly decorrelating Markov chain. Each site is a two-Gaussian mixture conditioned on all previous sites, and the network is trained on the reverse KL divergence against the lattice action.
+I train an autoregressive neural network (a MADE-style model in TensorFlow) to reproduce the probability density of a one-dimensional lattice φ⁴ field theory, so that independent configurations can be drawn directly instead of from a slowly decorrelating Markov chain. Each site is a mixture of two Gaussians conditioned on all previous sites, which lets the model capture the double-well structure of the field that a single Gaussian cannot represent, and the network is trained on the reverse KL divergence against the lattice action.
 
-I rewrote the sampler so that it updates the hidden layer incrementally instead of re-running the full network at every site, which cuts the cost of a sampling pass by roughly two orders of magnitude in a NumPy reference test. The repository also contains a Metropolis reference simulation that shows the slow tunnelling between the two wells that motivates the approach.
+The picture compares the field distribution at one site: the two-Gaussian autoregressive model follows the bimodal Metropolis reference, while the best unimodal (multivariate Gaussian) model produces a single broad peak. I also rewrote the sampler to update the hidden layer incrementally, which makes sampling much faster.
 <!--more-->

@@ -78,10 +78,11 @@ sections:
     id: projects
     content:
       title: Projects
+      count: 12
       filters:
         folders:
           - projects
-        featured_only: false
+        featured_only: true
     design:
       view: article-grid
       columns: 2
