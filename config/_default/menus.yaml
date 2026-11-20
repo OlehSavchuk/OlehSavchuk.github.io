@@ -12,7 +12,7 @@ main:
     url: '/#projects' 
     weight: 40  
   - name: CV
-    url: 'uploads/Oleh_Savchuk_CV.pdf' 
+    url: '/cv/'
     weight: 50
   - name: Plots
     url: '/plots/'           # REMOVED # to point to a new page
