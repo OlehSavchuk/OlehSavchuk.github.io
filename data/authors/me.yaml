@@ -29,6 +29,12 @@ links:
     url: https://www.linkedin.com/in/oleh-savchuk-5640291b9/
   - icon: academicons/google-scholar
     url: https://scholar.google.com/citations?user=pEXcS4EAAAAJ&hl=uk
+  - icon: academicons/inspire
+    url: https://inspirehep.net/literature?q=a%20Oleh%20Savchuk
+    label: INSPIRE-HEP
+  - icon: academicons/arxiv
+    url: https://arxiv.org/search/?query=Savchuk%2C+Oleh&searchtype=author
+    label: arXiv
 
 interests:
   - Theoretical Physics
