@@ -1,6 +1,6 @@
 # Oleh Savchuk
 
-**Contact:** savchukolegv@gmail.com
+**Contact:** savchukolegv@gmail.com · [olehsavchuk.github.io](https://olehsavchuk.github.io) · [LinkedIn](https://www.linkedin.com/in/oleh-savchuk-5640291b9/) · [GitHub](https://github.com/OlehSavchuk)
 
 ---
 
@@ -79,7 +79,7 @@ Heavy-Ion Collisions • QCD Equation of State • Gravity • Machine Learning 
 - **INSPIRE Bibliography:** 23 papers on QCD properties, dynamics, and equation of state; 2 papers on General Relativity; 1 paper on Machine Learning
 - **Citations:** 529 total citations
 - **h-index:** 11
-- **Presentations:** 19 presentations and 1 poster session at international conferences
+- **Presentations:** 25 talks and presentations at international conferences, workshops, and institutions
 
 ---
 
@@ -130,7 +130,7 @@ Heavy-Ion Collisions • QCD Equation of State • Gravity • Machine Learning 
 
 ---
 
-## SELECTED PUBLICATIONS
+## SELECTED PUBLISHED PAPERS
 
 1. O. Savchuk, "Net-proton fluctuations influenced by baryon stopping and quark deconfinement", *Phys. Rev. C* **111**, 024913 (2025)
 
@@ -200,3 +200,13 @@ Ukrainian (Native) • English (Fluent)
 ---
 
 *Last updated: May 2025*
+
+---
+
+## UNPUBLISHED PAPERS & PREPRINTS
+
+1. O. Savchuk, "Collectivity in pPb Collisions with Femtoscopy", [arXiv:2510.22456](https://arxiv.org/abs/2510.22456) — prepared for submission to *Phys. Lett. B*
+
+2. O. Savchuk, P. Danielewicz, D. Kincses, and A. Sorensen, "Probing vorticity through femtoscopic correlations", [arXiv:2510.10795](https://arxiv.org/abs/2510.10795)
+
+3. O. Savchuk, P. Danielewicz, W. Lynch, and J. Margueron, "Freeze-out model of light nuclei formation in heavy-ion collision transport", [arXiv:2605.11275](https://arxiv.org/abs/2605.11275)
