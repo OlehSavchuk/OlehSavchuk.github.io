@@ -1,6 +1,7 @@
 ---
-title: Bjorken Linear Hydrodynamics
+title: Crank-Nicolson Linear Hydrodynamics
 date: 2026-11-16
+featured: true
 links:
   - type: site
     url: https://github.com/OlehSavchuk/bjorken-linear-hydro

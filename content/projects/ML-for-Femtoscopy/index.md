@@ -1,6 +1,7 @@
 ---
 title: ML for Femtoscopy
 date: 2026-11-16
+featured: true
 links:
   - type: site
     url: https://github.com/OlehSavchuk/ML-for-Femtoscopy
