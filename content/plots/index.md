@@ -5,7 +5,7 @@ type: page
 
 Here is a collection of my interactive visualizations and physics simulations.
 
-**Jump to:** [Heavy-ion collision dynamics](#heavy-ion-collision-dynamics) · [Local thermal nonequilibrium](#local-thermal-nonequilibrium) · [Net-proton fluctuations](#net-proton-fluctuations) · [Transverse momentum correlations](#transverse-momentum-correlations)
+**Jump to:** [Heavy-ion collision dynamics](#heavy-ion-collision-dynamics) · [Local thermal nonequilibrium](#local-thermal-nonequilibrium) · [Net-proton fluctuations](#net-proton-fluctuations) · [Transverse momentum correlations](#transverse-momentum-correlations) · [Linearized Bjorken Green's functions](#linearized-bjorken-greens-functions)
 
 <style>
   .plot-frame { display: block; width: 100%; max-width: 680px; margin: 0 auto 40px auto; border: 1px solid rgba(128,128,128,.35); border-radius: 8px; }
@@ -173,6 +173,43 @@ I use a simple model in which sources fragment in the transverse plane, each spl
 The strong correlation seen at low energies is likely caused by inelastic 2→2 scatterings that produce pairs with equal transverse momentum. At higher energies, these particles instead become resonances that undergo splittings. Around 4 GeV, resonances form (or, by hadron-parton duality, very heavy resonances that split into many particles). When this happens, reproducing the data requires a dip in the number of sources together with an increase in the number of splittings.
 
 <iframe class="plot-frame autosize" loading="lazy" src="/uploads/pT correlator_ Glauber sources, strings or quarks.html" frameborder="0" style="height: 2900px;"></iframe>
+
+</details>
+
+## Linearized Bjorken Green's Functions
+
+Linearized Navier-Stokes hydrodynamics on a Bjorken background at zero net baryon density, for an ideal gas of pions and nucleons. Perturbations depend on proper time τ and spatial rapidity η. Setup: T<sub>0</sub> = 160 MeV at τ<sub>0</sub> = 1 fm/c, η/s = 0.2, charge diffusion D = 1/(πT). Solved in Fourier space in η (code: [bjorken_n0.py](/uploads/bjorken-n0/bjorken_n0.py), [run.py](/uploads/bjorken-n0/run.py)).
+
+<details class="plot-box">
+<summary>Green's Functions of ε, P<sub>η</sub>, p<sub>x</sub>, p<sub>y</sub>, B and Q</summary>
+
+Response at (η, τ) to a unit source at η′ and τ<sub>0</sub> (source width 0.05). B and Q are decoupled from the energy–momentum sector at n<sub>0</sub> = 0 and diffuse; p<sub>x</sub> and p<sub>y</sub> are identical. The longitudinal sector shows sound propagation.
+
+<video class="neq-media" controls loop muted playsinline preload="none" src="/uploads/bjorken-n0/anim_green_functions.mp4"></video>
+
+<img class="neq-media" loading="lazy" src="/uploads/bjorken-n0/fig_green_functions.png" alt="Green's functions at several proper times">
+
+</details>
+
+<details class="plot-box">
+<summary>Evolution of the p<sub>x</sub>p<sub>x</sub> Correlation</summary>
+
+Equal-time correlation function in relative rapidity, normalized to the local-equilibrium value, starting from local equilibrium at τ<sub>0</sub>. The dashed line is the local-equilibrium (smeared δ) correlation; the right panel shows the remainder, the balancing part.
+
+<video class="neq-media" controls loop muted playsinline preload="none" src="/uploads/bjorken-n0/anim_pxpx_correlation.mp4"></video>
+
+<img class="neq-media" loading="lazy" src="/uploads/bjorken-n0/fig_correlations.png" alt="Correlation functions of all fields at several proper times">
+
+</details>
+
+<details class="plot-box">
+<summary>Diagonal Susceptibilities and Balancing Parts of B and Q</summary>
+
+Equilibrium susceptibilities along the trajectory, and the rapidity-windowed ratio of the evolved correlation to the local-equilibrium susceptibility. Because the conserved charges cannot follow the falling equilibrium susceptibility, the ratio grows for B (nucleons are Boltzmann-suppressed as T falls) much more than for Q (carried mostly by pions).
+
+<img class="neq-media" loading="lazy" src="/uploads/bjorken-n0/fig_susceptibilities.png" alt="Equilibrium susceptibilities and windowed susceptibility ratios">
+
+<img class="neq-media" loading="lazy" src="/uploads/bjorken-n0/fig_balancing.png" alt="Balancing parts for B, Q and px">
 
 </details>
 
