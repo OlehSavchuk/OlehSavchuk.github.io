@@ -20,6 +20,12 @@
     frame.addEventListener('load', function () { attach(frame); });
     if (frame.contentDocument && frame.contentDocument.readyState === 'complete') attach(frame);
   });
+  // Re-measure when a collapsed <details> section is opened.
+  document.querySelectorAll('details').forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) d.querySelectorAll('iframe.autosize').forEach(fit);
+    });
+  });
   window.addEventListener('resize', function () {
     document.querySelectorAll('iframe.autosize').forEach(fit);
   });
