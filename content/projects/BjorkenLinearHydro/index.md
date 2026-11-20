@@ -1,6 +1,6 @@
 ---
 title: Crank-Nicolson Linear Hydrodynamics
-date: 2026-11-16
+date: 2026-11-17
 featured: true
 links:
   - type: site

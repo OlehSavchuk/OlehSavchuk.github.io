@@ -1,6 +1,6 @@
 ---
 title: FFT Normalizing Flow
-date: 2022-07-28
+date: 2026-11-19
 featured: true
 links:
   - type: site

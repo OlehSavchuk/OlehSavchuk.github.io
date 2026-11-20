@@ -1,6 +1,6 @@
 ---
 title: Hybrid Coarse Graining Freeze-Out
-date: 2026-07-28
+date: 2026-11-20
 featured: true
 links:
   - type: site

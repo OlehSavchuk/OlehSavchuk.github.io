@@ -1,6 +1,6 @@
 ---
 title: ML for Femtoscopy
-date: 2026-11-16
+date: 2026-11-18
 featured: true
 links:
   - type: site
