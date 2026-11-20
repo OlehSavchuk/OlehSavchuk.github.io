@@ -15,6 +15,7 @@ Here is a collection of my interactive visualizations and physics simulations.
   details.plot-box[open] > summary { border-bottom: 1px solid rgba(128,128,128,.35); margin-bottom: 14px; }
   details.plot-box .plot-frame, details.plot-box .sim-frame { margin-bottom: 20px; }
   .neq-media { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto 20px auto; border-radius: 6px; background: #fff; }
+    .neq-dark { background: #000; }
   details.plot-box summary sub, details.plot-box summary sup { font-size: .7em; }
 </style>
 
@@ -108,6 +109,31 @@ The off-diagonal rest-frame momentum correlations, e<sub>ij</sub> = 3 ⟨p<sub>i
 <video class="neq-media" controls loop muted playsinline preload="none" src="/uploads/local-nonequilibrium/offdiagonal.mp4"></video>
 
 <img class="neq-media" loading="lazy" src="/uploads/local-nonequilibrium/offdiagonal.png" alt="Off-diagonal momentum anisotropy components in the xy and xz planes at several times">
+
+</details>
+
+<details class="plot-box">
+<summary>Freeze-Out Surface and Local Temperature (HCGF Animations)</summary>
+
+Animations from my [Hybrid Coarse-Graining Freeze-Out](https://github.com/OlehSavchuk/Hybrid-Coarse-Graining-Freeze-Out) (HCGF) model, which builds the freeze-out surface from the coarse-grained UrQMD fields and takes the local, non-uniform thermodynamic state of each surface element into account when computing light-nuclei emission. The surface shown is the contour of constant density n = 0.02 fm<sup>-3</sup>, with its projections on the coordinate planes.
+
+#### Energy per particle on the freeze-out surface
+
+The density contour coloured by the energy per particle e/n, as a function of time.
+
+<video class="neq-media neq-dark" controls loop muted playsinline preload="none" src="/uploads/local-nonequilibrium/hcgf_surface_energy_per_particle.mp4"></video>
+
+#### Isodensity surface and plane projections
+
+The same surface evolving in time, together with its projections onto the coordinate planes.
+
+<video class="neq-media neq-dark" controls loop muted playsinline preload="none" src="/uploads/local-nonequilibrium/hcgf_surface_projections.mp4"></video>
+
+#### Local temperature: clustering vs nucleons only
+
+Local temperature (in MeV, logarithmic colour scale) on the surface, for the "Clustering" description (left) and the "Nucleons" description (right).
+
+<video class="neq-media neq-dark" controls loop muted playsinline preload="none" src="/uploads/local-nonequilibrium/hcgf_temperature_comparison.mp4"></video>
 
 </details>
 
